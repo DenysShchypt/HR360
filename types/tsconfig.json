@@ -10,6 +10,7 @@
     "target": "ESNext",
     "jsx": "react-jsx",
     "strict": true,
+    "esModuleInterop": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "experimentalDecorators": true,
@@ -17,7 +18,7 @@
     "baseUrl": "./src"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist"],
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

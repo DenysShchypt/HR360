@@ -6,3 +6,5 @@
 4. npm run build
 5. npm run preview
 6. npm run prepare
+
+Deploy terminal : vercel --prod
