@@ -18,6 +18,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
+  esbuild: {
+    jsxFactory: 'React.createElement',
+    jsxFragment: 'React.Fragment',
+  },
 
   // server: {
   //   open: '/register',
