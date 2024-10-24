@@ -1,0 +1,47 @@
+.container_sidebar {
+  display: flex;
+  flex-direction: column;
+  transition: transform 2s ease;
+}
+
+.logo_wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 24px 24px 24px 0;
+}
+
+.switch_sidebar {
+  padding: 20px 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo_text {
+  margin-left: 12px;
+  font-family: 'Preahvihear', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+aside {
+  width: 250px; /* Adjust width as needed */
+  background-color: #333; /* Background color for sidebar */
+  color: white; /* Text color */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Hide overflow */
+  transition: transform 0.9s ease; /* Smooth transition for transform */
+}
+
+aside.closed {
+  transform: translateX(-100%); /* Move off-screen */
+}
+
+aside.open {
+  transform: translateX(0); /* Move to visible position */
+}

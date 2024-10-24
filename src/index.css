@@ -28,5 +28,18 @@ ul {
 }
 
 button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
+  outline: none;
+}
+
+.container {
+  min-width: 1280px;
+  padding: 0 24px;
+  margin: 0 auto;
 }
