@@ -1,13 +1,15 @@
 .container_sidebar {
   display: flex;
   flex-direction: column;
-  transition: transform 2s ease;
+  max-width: 248px;
+  padding: 24px;
+  background-color: var(--sidebar-background-color);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .logo_wrap {
   display: flex;
-  flex-direction: column;
-  align-items: start;
   padding: 24px 24px 24px 0;
 }
 
@@ -18,7 +20,6 @@
 .logo {
   display: flex;
   align-items: center;
-  text-decoration: none;
 }
 
 .logo_text {
@@ -29,19 +30,35 @@
   line-height: 1.2;
 }
 
-aside {
-  width: 250px; /* Adjust width as needed */
-  background-color: #333; /* Background color for sidebar */
-  color: white; /* Text color */
-  height: 100%; /* Full height */
-  overflow: hidden; /* Hide overflow */
-  transition: transform 0.9s ease; /* Smooth transition for transform */
+.list_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.list_item {
+}
+.nav_item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.43;
+  color: var(--secondary-text-color);
+  transition: color 0.5s ease;
 }
 
-aside.closed {
-  transform: translateX(-100%); /* Move off-screen */
+.nav_item:hover,
+.nav_item:focus,
+.nav_item.active {
+  background-color: var(--active-button-background);
+  transition: color 0.5s ease;
+  transition: background-color 0.5s ease;
+  color: var(--primary-text-color);
+  fill: white;
 }
 
-aside.open {
-  transform: translateX(0); /* Move to visible position */
+.icon:hover {
 }
