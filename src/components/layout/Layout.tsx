@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
 
@@ -7,7 +7,9 @@ const Layout: FC = () => {
     <div>
       <Sidebar />
       {/* <Headers />  */}
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

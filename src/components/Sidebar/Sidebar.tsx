@@ -1,43 +1,50 @@
 import React, { FC, useState } from 'react';
 import logoUrl from '../../assets/logo.svg';
 import { NavLink } from 'react-router-dom';
-import { RiTeamLine } from 'react-icons/ri';
-import { RxDashboard } from 'react-icons/rx';
+import { BsGrid, BsGraphUp } from 'react-icons/bs';
 import { GoPersonAdd } from 'react-icons/go';
-import { BsGraphUp } from 'react-icons/bs';
-import { TbCashRegister } from 'react-icons/tb';
-import { GrBook } from 'react-icons/gr';
-import { GrSchedule } from 'react-icons/gr';
-import { TbFileAnalytics } from 'react-icons/tb';
+import {
+  RiMoneyDollarBoxLine,
+  RiCalendarScheduleLine,
+  RiLogoutBoxLine,
+  RiTeamLine,
+} from 'react-icons/ri';
+import { GiBookmark } from 'react-icons/gi';
+import { SiSimpleanalytics } from 'react-icons/si';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
-import { TbLogout } from 'react-icons/tb';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import {
+  IoIosArrowBack,
+  IoIosArrowForward,
+  IoIosArrowDown,
+  IoIosArrowUp,
+} from 'react-icons/io';
 import styles from './Sidebar.module.css';
 
-{
-  /* <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={styles.switch_sidebar}
-          >
-            {isSidebarOpen ? (
-              <IoIosArrowBack size={20} />
-            ) : (
-              <IoIosArrowForward size={15} />
-            )}
-          </button> */
-}
 const Sidebar: FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-  const toggleMenu = () => setIsSidebarOpen((prev) => !prev);
+  const [openGroups, setOpenGroups] = useState<{ [key: string]: boolean }>({});
+  const toggleGroup = (group: string) => {
+    setOpenGroups((prev) => ({
+      ...prev,
+      [group]: !prev[group],
+    }));
+  };
+  const toggleSideBar = () => setIsSidebarOpen((prev) => !prev);
   return (
     <>
       <div className={styles.container_sidebar}>
         <div className={styles.logo_wrap}>
-          <button onClick={toggleMenu} className={styles.switch_sidebar}>
+          <button onClick={toggleSideBar} className={styles.switch_sidebar}>
             {isSidebarOpen ? (
-              <IoIosArrowBack size={20} />
+              <IoIosArrowBack
+                size={20}
+                className={`${styles.arrow} ${styles.arrow_close}`}
+              />
             ) : (
-              <IoIosArrowForward size={20} />
+              <IoIosArrowForward
+                size={20}
+                className={`${styles.arrow} ${styles.arrow_open}`}
+              />
             )}
           </button>
           <NavLink to="/login" className={styles.logo}>
@@ -50,65 +57,122 @@ const Sidebar: FC = () => {
           </NavLink>
         </div>
         <aside>
-          <nav>
+          <nav className={styles.nav}>
             <ul className={styles.list_wrap}>
               <li className={styles.list_item}>
                 <NavLink to="/" className={styles.nav_item}>
-                  <RxDashboard size={20} />
+                  <BsGrid size={20} className={styles.icon} />
                   {isSidebarOpen && 'Dashboard'}
                 </NavLink>
               </li>
               <li className={styles.list_item}>
-                <NavLink to="/" className={styles.nav_item}>
+                <button
+                  className={styles.nav_item}
+                  onClick={() => toggleGroup('employee')}
+                >
                   <RiTeamLine size={20} className={styles.icon} />
-                  {isSidebarOpen && 'Employee'}
-                </NavLink>
+                  {isSidebarOpen && (
+                    <p className={styles.title_item}>Employee</p>
+                  )}
+                  {!openGroups['employee'] ? (
+                    <IoIosArrowDown size={16} className={styles.icon} />
+                  ) : (
+                    <IoIosArrowUp size={16} className={styles.icon} />
+                  )}
+                </button>
+                {openGroups['employee'] && (
+                  <ul className={styles.list_sub_items}>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Employee directory</NavLink>
+                    </li>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Attendance</NavLink>
+                    </li>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Leave requests</NavLink>
+                    </li>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Absence Trends</NavLink>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              <li className={styles.list_item}>
+                <button
+                  className={styles.nav_item}
+                  onClick={() => toggleGroup('recruitment')}
+                >
+                  <GoPersonAdd size={20} className={styles.icon} />
+                  {isSidebarOpen && (
+                    <p className={styles.title_item}>Recruitment</p>
+                  )}
+                  {!openGroups['recruitment'] ? (
+                    <IoIosArrowDown size={16} className={styles.icon} />
+                  ) : (
+                    <IoIosArrowUp size={16} className={styles.icon} />
+                  )}
+                </button>
+                {openGroups['recruitment'] && (
+                  <ul className={styles.list_sub_items}>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Employee directory</NavLink>
+                    </li>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Attendance</NavLink>
+                    </li>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Leave requests</NavLink>
+                    </li>
+                    <li className={styles.sub_item}>
+                      <NavLink to="/">Absence Trends</NavLink>
+                    </li>
+                  </ul>
+                )}
               </li>
               <li className={styles.list_item}>
                 <NavLink to="/" className={styles.nav_item}>
-                  <GoPersonAdd size={20} />
-                  {isSidebarOpen && 'Recruitment'}
-                </NavLink>
-              </li>
-              <li className={styles.list_item}>
-                <NavLink to="/" className={styles.nav_item}>
-                  <BsGraphUp size={20} />
+                  <BsGraphUp size={20} className={styles.icon} />
                   {isSidebarOpen && 'Performance M'}
                 </NavLink>
               </li>
               <li className={styles.list_item}>
                 <NavLink to="/" className={styles.nav_item}>
-                  <TbCashRegister size={20} />
+                  <RiMoneyDollarBoxLine size={20} className={styles.icon} />
                   {isSidebarOpen && 'Payroll'}
                 </NavLink>
               </li>
               <li className={styles.list_item}>
                 <NavLink to="/" className={styles.nav_item}>
-                  <GrBook size={20} />
+                  <GiBookmark size={20} className={styles.icon} />
                   {isSidebarOpen && 'Training and Develop'}
                 </NavLink>
               </li>
               <li className={styles.list_item}>
                 <NavLink to="/" className={styles.nav_item}>
-                  <GrSchedule size={20} />
+                  <RiCalendarScheduleLine size={20} className={styles.icon} />
                   {isSidebarOpen && 'Schedule'}
                 </NavLink>
               </li>
               <li className={styles.list_item}>
                 <NavLink to="/" className={styles.nav_item}>
-                  <TbFileAnalytics size={20} />
+                  <SiSimpleanalytics size={20} className={styles.icon} />
                   {isSidebarOpen && 'Reports and Analytics'}
                 </NavLink>
               </li>
-              <li className={styles.list_item}>
+            </ul>
+            <ul className={styles.list_wrap}>
+              <li>
                 <NavLink to="/" className={styles.nav_item}>
-                  <AiOutlineExclamationCircle size={20} />
+                  <AiOutlineExclamationCircle
+                    size={20}
+                    className={styles.icon}
+                  />
                   {isSidebarOpen && 'Help'}
                 </NavLink>
               </li>
-              <li className={styles.list_item}>
+              <li>
                 <NavLink to="/" className={styles.nav_item}>
-                  <TbLogout size={20} />
+                  <RiLogoutBoxLine size={20} className={styles.icon} />
                   {isSidebarOpen && 'Logout'}
                 </NavLink>
               </li>
