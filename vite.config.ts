@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
+import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,6 +11,7 @@ export default defineConfig({
       include: ['src/**/*.ts', 'src/**/*.tsx'], // Specify files to lint
       exclude: ['node_modules/**'], // Specify files to exclude
     }),
+    svgr(),
   ],
   server: {
     host: true,

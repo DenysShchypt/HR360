@@ -27,7 +27,7 @@ const ErrorPage: FC = () => {
             allowFullScreen={false}
             allow="autoplay"
             height="50%"
-            src="https://giphy.com/embed/u2wg2uXJbHzkXkPphr/video"
+            src="https://giphy.com/embed/xTiN0L7EW5trfOvEk0"
             style={{
               position: 'absolute',
               top: '50%',
