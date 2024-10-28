@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import logoUrl from '../../assets/logo.svg';
 import { NavLink } from 'react-router-dom';
 import { BsGrid, BsGraphUp } from 'react-icons/bs';
 import { GoPersonAdd } from 'react-icons/go';
@@ -12,16 +11,14 @@ import {
 import { GiBookmark } from 'react-icons/gi';
 import { SiSimpleanalytics } from 'react-icons/si';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
-import {
-  IoIosArrowBack,
-  IoIosArrowForward,
-  IoIosArrowDown,
-  IoIosArrowUp,
-} from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import styles from './Sidebar.module.css';
 
-const Sidebar: FC = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+interface ISidebarProps {
+  isSidebarOpen: boolean;
+}
+
+const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
   const [openGroups, setOpenGroups] = useState<{ [key: string]: boolean }>({});
   const toggleGroup = (group: string) => {
     setOpenGroups((prev) => ({
@@ -29,33 +26,12 @@ const Sidebar: FC = () => {
       [group]: !prev[group],
     }));
   };
-  const toggleSideBar = () => setIsSidebarOpen((prev) => !prev);
+
   return (
     <>
-      <div className={styles.container_sidebar}>
-        <div className={styles.logo_wrap}>
-          <button onClick={toggleSideBar} className={styles.switch_sidebar}>
-            {isSidebarOpen ? (
-              <IoIosArrowBack
-                size={20}
-                className={`${styles.arrow} ${styles.arrow_close}`}
-              />
-            ) : (
-              <IoIosArrowForward
-                size={20}
-                className={`${styles.arrow} ${styles.arrow_open}`}
-              />
-            )}
-          </button>
-          <NavLink to="/login" className={styles.logo}>
-            {isSidebarOpen && (
-              <>
-                <img src={logoUrl} alt="Logo" width="40" height="40" />
-                <span className={styles.logo_text}>HR.24/7</span>
-              </>
-            )}
-          </NavLink>
-        </div>
+      <div
+        className={`${styles.container_sidebar} ${isSidebarOpen ? styles.open : ''}`}
+      >
         <aside>
           <nav className={styles.nav}>
             <ul className={styles.list_wrap}>
@@ -67,6 +43,7 @@ const Sidebar: FC = () => {
               </li>
               <li className={styles.list_item}>
                 <button
+                  type="button"
                   className={styles.nav_item}
                   onClick={() => toggleGroup('employee')}
                 >
@@ -99,6 +76,7 @@ const Sidebar: FC = () => {
               </li>
               <li className={styles.list_item}>
                 <button
+                  type="button"
                   className={styles.nav_item}
                   onClick={() => toggleGroup('recruitment')}
                 >

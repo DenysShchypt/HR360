@@ -1,41 +1,19 @@
 .container_sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   max-width: 248px;
   padding: 24px;
+  padding-top: 92px;
   background-color: var(--sidebar-background-color);
   height: 100vh;
-  overflow: hidden;
+  transform: translateX(0);
+  transition: transform 200ms ease-in;
 }
-
-.logo_wrap {
-  display: flex;
-  padding: 24px 24px 24px 0;
-}
-
-.switch_sidebar {
-  position: relative;
-  padding-left: 16px;
-  margin-right: 12px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-}
-
-.arrow {
-  transition: transform 0.3s ease;
-}
-
-.switch_sidebar:hover .arrow_open {
-  transform: translateX(15px);
-}
-
-.switch_sidebar:hover .arrow_close {
-  transform: translateX(-15px);
+.container_sidebar.open {
+  transform: translateX(0);
 }
 
 .logo {

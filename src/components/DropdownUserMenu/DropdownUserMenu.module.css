@@ -1,0 +1,24 @@
+.setting_arrow {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--sidebar-background-color);
+}
+
+.user_chose {
+  width: 100%;
+  text-align: start;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.user_chose:hover {
+  color: var(--active-button-background);
+}
