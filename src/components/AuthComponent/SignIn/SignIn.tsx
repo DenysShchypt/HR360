@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
+import { IPropsLogin } from '../../../common/types/auth';
 import styles from './SignUp.module.css';
-import { FiUser } from 'react-icons/fi';
 import { IoMailOpenOutline } from 'react-icons/io5';
 import { GoLock } from 'react-icons/go';
-import { IPropsRegister } from '../../common/types/auth';
+import { VscSignIn } from 'react-icons/vsc';
 
-const SignUp: FC<IPropsRegister> = (props: IPropsRegister) => {
+const SignIn: FC<IPropsLogin> = (props: IPropsLogin) => {
   const {
     navigate,
     register,
@@ -15,23 +15,6 @@ const SignUp: FC<IPropsRegister> = (props: IPropsRegister) => {
   return (
     <>
       <div className={styles.inputs_wrap}>
-        <div>
-          <label className={styles.input_wrap}>
-            <FiUser size={20} />
-            <input
-              className={styles.input_field}
-              type="text"
-              autoComplete="on"
-              placeholder="USERNAME"
-              {...register('username', {
-                required: 'Enter your username',
-              })}
-            />
-          </label>
-          {errors.username && (
-            <p className={styles.error_message}>{errors.username.message}</p>
-          )}
-        </div>
         <div>
           <label className={styles.input_wrap}>
             <IoMailOpenOutline size={20} />
@@ -56,7 +39,7 @@ const SignUp: FC<IPropsRegister> = (props: IPropsRegister) => {
               className={styles.input_field}
               type="password"
               placeholder="PASSWORD"
-              autoComplete="off"
+              autoComplete="on"
               {...register('password', {
                 required: 'Enter your password',
               })}
@@ -68,22 +51,28 @@ const SignUp: FC<IPropsRegister> = (props: IPropsRegister) => {
         </div>
       </div>
       <button type="submit" className={styles.button_send_form}>
-        REGISTER
+        LOGIN
       </button>
-      <div className={styles.forgot_account_wrap}>
-        <button
-          className={styles.auxiliary_button}
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate('/login');
-          }}
-        >
-          If you have an account?
+      <div className={styles.forgot_password_wrap}>
+        <button type="button" className={styles.auxiliary_button}>
+          Forgot Password?
         </button>
+        <div className={styles.register_wrap}>
+          <VscSignIn size={20} />
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/register');
+            }}
+            className={styles.auxiliary_button}
+          >
+            Register
+          </button>
+        </div>
       </div>
     </>
   );
 };
 
-export default SignUp;
+export default SignIn;

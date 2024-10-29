@@ -6,9 +6,10 @@ import Header from '../../components/Header/Header';
 // import { useAppDispatch } from '../../utils/hooks/hooks';
 import styles from './Auth.module.css';
 import { IFormData, IFormDataRegister } from '../../common/types/auth';
-import SignIn from '../../components/SignIn/SignIn';
-import SignUp from '../../components/SignUp/SignUp';
+
 import { LoginSchema, RegisterSchema } from '../../utils/yup/authForm';
+import SignIn from '../../components/AuthComponent/SignIn/SignIn';
+import SignUp from '../../components/AuthComponent/SignUp/SignUp';
 
 const Auth: FC = () => {
   const location = useLocation();
