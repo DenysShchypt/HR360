@@ -5,8 +5,7 @@ import ErrorPage from '../pages/ErrorPage';
 import { PrivateRoute } from '../routes/PrivateRouter';
 import { PublicRoute } from '../routes/PublicRoute';
 import { RolesRoute } from '../routes/RolesRoute';
-import SignInPage from '../pages/SignInPage/SignInPage';
-import SignUpPage from '../pages/SignUpPage/SignUpPage';
+import Auth from '../pages/Auth/Auth';
 
 const App: FC = () => {
   return (
@@ -60,11 +59,11 @@ const App: FC = () => {
 
       <Route
         path="/login"
-        element={<PublicRoute redirectTo="/" component={<SignInPage />} />}
+        element={<PublicRoute redirectTo="/" component={<Auth />} />}
       />
       <Route
         path="/register"
-        element={<PublicRoute redirectTo="/" component={<SignUpPage />} />}
+        element={<PublicRoute redirectTo="/" component={<Auth />} />}
       />
       <Route path="*" element={<ErrorPage />} />
     </Routes>

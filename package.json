@@ -13,7 +13,9 @@
     "test": "echo \"No tests yet\""
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@reduxjs/toolkit": "^2.3.0",
+    "@types/yup": "^0.29.14",
     "axios": "^1.7.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
