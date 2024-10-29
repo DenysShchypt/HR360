@@ -1,0 +1,140 @@
+.container_header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.logo_wrap {
+  display: flex;
+  align-items: center;
+  padding: 24px 36px 24px 24px;
+}
+
+.switch_sidebar {
+  position: relative;
+  padding-left: 16px;
+  margin-right: 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.switch_sidebar:hover .arrow_open {
+  transform: translateX(15px);
+}
+
+.switch_sidebar:hover .arrow_close {
+  transform: translateX(-15px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  z-index: 9;
+  padding-left: 8px;
+}
+
+.logo_text {
+  margin-left: 12px;
+  font-family: 'Preahvihear', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.settings_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 24px;
+}
+
+.greed_wrap {
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.greed {
+  margin-right: 6px;
+}
+
+.name {
+  font-weight: 400;
+}
+
+.info_user_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.user_notifications_wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notifications_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}
+
+.notifications_item::after {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--active-button-background);
+  display: block;
+  border: 2px solid white;
+}
+
+.notifications_icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.notifications_item:hover .notifications_icon {
+  transform: scale(1.25);
+}
+
+.setting_user_wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+}
+
+.setting_arrow_wrap {
+  position: relative;
+}
+
+.icon_arrow {
+  fill: var(--active-button-background);
+}
+.icon_arrow:hover {
+  transform: scale(1.5);
+}
