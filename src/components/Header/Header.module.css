@@ -81,6 +81,7 @@
   justify-content: space-between;
   gap: 24px;
 }
+
 .user_notifications_wrap {
   display: flex;
   align-items: center;
@@ -92,6 +93,9 @@
   display: flex;
   align-items: center;
   padding: 8px;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
 }
 
 .notifications_item::after {
@@ -107,6 +111,16 @@
   border: 2px solid white;
 }
 
+.notifications_icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.notifications_item:hover .notifications_icon {
+  transform: scale(1.25);
+}
+
 .setting_user_wrap {
   display: flex;
   align-items: center;
@@ -114,10 +128,13 @@
   padding: 8px 16px;
 }
 
-.setting_arrow {
+.setting_arrow_wrap {
   position: relative;
 }
 
 .icon_arrow {
   fill: var(--active-button-background);
+}
+.icon_arrow:hover {
+  transform: scale(1.5);
 }

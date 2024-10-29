@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import styles from './DropdownUserMenu.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,15 +7,23 @@ interface IDropdownUserMenu {
 }
 
 const DropdownUserMenu: FC<IDropdownUserMenu> = ({ onClose }) => {
+  const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const onBackdropClick = (e) => {
-    console.log(e.target);
-    if (e.currentTarget === e.target) {
-      onClose();
-    }
-  };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
+
   return (
-    <>
+    <div ref={menuRef} className={styles.dropdown_menu_wrap}>
       <ul className={styles.setting_arrow}>
         <li>
           <button
@@ -23,7 +31,6 @@ const DropdownUserMenu: FC<IDropdownUserMenu> = ({ onClose }) => {
             className={styles.user_chose}
             onClick={() => {
               navigate('/register');
-              onClose();
             }}
           >
             Profile
@@ -57,8 +64,7 @@ const DropdownUserMenu: FC<IDropdownUserMenu> = ({ onClose }) => {
           </button>
         </li>
       </ul>
-      <div onClick={onBackdropClick}></div>
-    </>
+    </div>
   );
 };
 

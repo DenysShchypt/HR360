@@ -68,17 +68,23 @@ const Header: FC = () => {
           <ul className={styles.user_notifications_wrap}>
             <li>
               <button type="button" className={styles.notifications_item}>
-                <CiSettings size={24} />
+                <CiSettings size={24} className={styles.notifications_icon} />
               </button>
             </li>
             <li>
               <button type="button" className={styles.notifications_item}>
-                <IoMailOutline size={24} />
+                <IoMailOutline
+                  size={24}
+                  className={styles.notifications_icon}
+                />
               </button>
             </li>
             <li>
               <button type="button" className={styles.notifications_item}>
-                <IoNotificationsOutline size={24} />
+                <IoNotificationsOutline
+                  size={24}
+                  className={styles.notifications_icon}
+                />
               </button>
             </li>
           </ul>
@@ -95,10 +101,10 @@ const Header: FC = () => {
                 ) : (
                   <IoIosArrowUp size={16} className={styles.icon_arrow} />
                 )}
-                {dropdownUserMenu && (
-                  <DropdownUserMenu onClose={() => setDropdownUserMenu(null)} />
-                )}
               </button>
+              {dropdownUserMenu && (
+                <DropdownUserMenu onClose={() => setDropdownUserMenu(null)} />
+              )}
             </div>
           </div>
         </div>
