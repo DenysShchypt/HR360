@@ -10,6 +10,7 @@ import { IFormData, IFormDataRegister } from '../../common/types/auth';
 import { LoginSchema, RegisterSchema } from '../../utils/yup/authForm';
 import SignIn from '../../components/AuthComponent/SignIn/SignIn';
 import SignUp from '../../components/AuthComponent/SignUp/SignUp';
+import Statistic from '../../components/AuthComponent/Statistic/Statistic';
 
 const Auth: FC = () => {
   const location = useLocation();
@@ -69,6 +70,7 @@ const Auth: FC = () => {
           ) : null}
         </div>
       </form>
+      <Statistic />
     </>
   );
 };
