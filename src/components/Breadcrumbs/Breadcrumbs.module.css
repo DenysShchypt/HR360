@@ -1,0 +1,31 @@
+.nav_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 272px;
+  padding-top: 100px;
+  padding-right: 24px;
+}
+
+.nav_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav_items {
+  display: flex;
+}
+
+.page_path {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.67;
+}
+
+.current_path {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.43;
+  color: var(--third-text-color);
+}

@@ -11,12 +11,12 @@ import { LoginSchema, RegisterSchema } from '../../utils/yup/authForm';
 import SignIn from '../../components/AuthComponent/SignIn/SignIn';
 import SignUp from '../../components/AuthComponent/SignUp/SignUp';
 import Statistic from '../../components/AuthComponent/Statistic/Statistic';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const Auth: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   // const dispatch = useAppDispatch();
-
   const {
     register,
     handleSubmit,
@@ -51,6 +51,7 @@ const Auth: FC = () => {
   return (
     <>
       <Header />
+      <Breadcrumbs />
       <form onSubmit={handleSubmit(onFormSubmit)} className={styles.form_wrap}>
         <div>
           {location.pathname === '/login' ? (
