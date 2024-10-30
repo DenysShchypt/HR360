@@ -10,7 +10,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 12px;
-  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  border: 0.5px solid var(--primary-border-color);
   border-radius: 12px;
   opacity: 0.7;
   transition:
@@ -42,13 +42,14 @@
   padding: 12px;
   margin-top: 24px;
   margin-bottom: 16px;
-  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  border: 0.5px solid var(--primary-border-color);
   border-radius: 12px;
   font-family: 'Preahvihear', sans-serif;
   font-weight: 600;
   font-size: 16px;
   line-height: 1.25;
   text-align: center;
+  opacity: 0.7;
   transition:
     opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -59,14 +60,15 @@
 
 .button_send_form:hover,
 .button_send_form:focus {
+  opacity: 1;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   background-color: var(--active-button-background);
-  color: white;
+  color: var(--primary-text-color);
 }
 
 .forgot_password_wrap {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 10px;
   text-align: center;
   font-weight: 500;
@@ -87,14 +89,36 @@
 
 .auxiliary_button {
   all: unset;
-  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px;
+  border: 0.5px solid var(--primary-border-color);
+  border-radius: 12px;
   opacity: 0.7;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease,
+    color 0.3s ease,
+    fill 0.3s ease;
+  cursor: pointer;
+}
 
-  &:hover {
-    opacity: 1;
-    color: var(--active-button-background);
-  }
+.auxiliary_button:hover,
+.auxiliary_button:focus {
+  opacity: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--active-button-background);
+  color: var(--primary-text-color);
+}
+.auxiliary_button .auxiliary_icon {
+  margin-right: 4px;
+}
+.auxiliary_button:hover .auxiliary_icon,
+.auxiliary_button:focus .auxiliary_icon {
+  transition: fill 0.3s ease;
+  fill: var(--primary-text-color);
 }
 
 .register_wrap {

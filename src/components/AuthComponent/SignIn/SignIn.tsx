@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { IPropsLogin } from '../../../common/types/auth';
-import styles from './SignUp.module.css';
+import styles from './SignIn.module.css';
 import { IoMailOpenOutline } from 'react-icons/io5';
 import { GoLock } from 'react-icons/go';
 import { VscSignIn } from 'react-icons/vsc';
@@ -57,15 +57,14 @@ const SignIn: FC<IPropsLogin> = (props: IPropsLogin) => {
         <button type="button" className={styles.auxiliary_button}>
           Forgot Password?
         </button>
-        <div className={styles.register_wrap}>
-          <VscSignIn size={20} />
+        <div className={styles.auxiliary_button}>
+          <VscSignIn size={20} className={styles.auxiliary_icon} />
           <button
             type="button"
             onClick={(e) => {
               e.preventDefault();
               navigate('/register');
             }}
-            className={styles.auxiliary_button}
           >
             Register
           </button>

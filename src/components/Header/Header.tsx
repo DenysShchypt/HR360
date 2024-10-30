@@ -62,7 +62,7 @@ const Header: FC = () => {
           <p className={styles.greed}>
             Welcome back, <span className={styles.name}>Barbara</span>
           </p>
-          <IoSunnyOutline style={{ fill: 'yellow' }} />
+          <IoSunnyOutline />
         </div>
         <div className={styles.info_user_wrap}>
           <ul className={styles.user_notifications_wrap}>

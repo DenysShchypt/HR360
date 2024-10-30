@@ -10,7 +10,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 12px;
-  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  border: 0.5px solid var(--primary-border-color);
   border-radius: 12px;
   opacity: 0.7;
   transition:
@@ -23,7 +23,7 @@
 .input_wrap:hover,
 .input_wrap:focus-within {
   opacity: 1;
-  border-color: #534feb;
+  border-color: var(--active-button-background);
   box-shadow: 0 4px 8px rgba(104, 104, 104, 0.5);
 }
 
@@ -42,7 +42,7 @@
   padding: 12px;
   margin-top: 24px;
   margin-bottom: 16px;
-  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  border: 0.5px solid var(--primary-border-color);
   border-radius: 12px;
   font-family: 'Preahvihear', sans-serif;
   font-weight: 600;
@@ -87,14 +87,28 @@
 
 .auxiliary_button {
   all: unset;
-  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px;
+  border: 0.5px solid var(--primary-border-color);
+  border-radius: 12px;
   opacity: 0.7;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease,
+    color 0.3s ease,
+    fill 0.3s ease;
+  cursor: pointer;
+}
 
-  &:hover {
-    opacity: 1;
-    color: var(--active-button-background);
-  }
+.auxiliary_button:hover,
+.auxiliary_button:focus {
+  opacity: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--active-button-background);
+  color: var(--primary-text-color);
 }
 
 .register_wrap {
