@@ -1,0 +1,10 @@
+.time_wrap {
+  display: flex;
+  gap: 12px;
+}
+
+.time {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.5;
+}

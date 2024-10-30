@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import AppError from '../errors/errors';
+import AppError from '../../common/errors/errors';
 
 export interface ILoginFormValues {
   email: string;
