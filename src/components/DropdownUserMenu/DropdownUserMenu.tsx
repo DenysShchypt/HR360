@@ -30,7 +30,7 @@ const DropdownUserMenu: FC<IDropdownUserMenu> = ({ onClose }) => {
             type="button"
             className={styles.user_chose}
             onClick={() => {
-              navigate('/register');
+              navigate('/');
             }}
           >
             Profile

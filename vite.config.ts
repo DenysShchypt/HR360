@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [
     react(),
     eslint({
-      include: ['src/**/*.ts', 'src/**/*.tsx'], // Specify files to lint
-      exclude: ['node_modules/**'], // Specify files to exclude
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+      exclude: ['node_modules/**'],
     }),
     svgr(),
   ],
@@ -24,8 +24,4 @@ export default defineConfig({
     jsxFactory: 'React.createElement',
     jsxFragment: 'React.Fragment',
   },
-
-  // server: {
-  //   open: '/register',
-  // },
 });
