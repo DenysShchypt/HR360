@@ -64,3 +64,10 @@ a {
   padding: 0 24px;
   margin: 0 auto;
 }
+
+.dashboard_container {
+  padding-top: 40px;
+  padding-left: 272px;
+  padding-right: 24px;
+  padding-bottom: 62px;
+}

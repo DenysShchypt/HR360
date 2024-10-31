@@ -1,12 +1,13 @@
 import React, { FC, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../Sidebar/Sidebar';
+import Header from '../Header/Header';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 const Layout: FC = () => {
   return (
     <div>
-      <Sidebar />
-      {/* <Headers />  */}
+      <Header />
+      <Breadcrumbs />
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>
