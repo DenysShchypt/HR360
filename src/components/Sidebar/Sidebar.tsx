@@ -36,7 +36,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
           <nav className={styles.nav}>
             <ul className={styles.list_wrap}>
               <li className={styles.list_item}>
-                <NavLink to="/" className={styles.nav_item}>
+                <NavLink to="/dashboard" className={styles.nav_item}>
                   <BsGrid size={20} className={styles.icon} />
                   {isSidebarOpen && 'Dashboard'}
                 </NavLink>
@@ -60,16 +60,24 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                 {openGroups['employee'] && (
                   <ul className={styles.list_sub_items}>
                     <li className={styles.sub_item}>
-                      <NavLink to="/">Employee directory</NavLink>
+                      <NavLink to="/dashboard/employee/directory">
+                        Employee directory
+                      </NavLink>
                     </li>
                     <li className={styles.sub_item}>
-                      <NavLink to="/">Attendance</NavLink>
+                      <NavLink to="/dashboard/employee/attendance">
+                        Attendance
+                      </NavLink>
                     </li>
                     <li className={styles.sub_item}>
-                      <NavLink to="/">Leave requests</NavLink>
+                      <NavLink to="/dashboard/employee/requests">
+                        Leave requests
+                      </NavLink>
                     </li>
                     <li className={styles.sub_item}>
-                      <NavLink to="/">Absence Trends</NavLink>
+                      <NavLink to="/dashboard/employee/absence">
+                        Absence Trends
+                      </NavLink>
                     </li>
                   </ul>
                 )}

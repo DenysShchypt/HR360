@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { login, registerUser } from './auth.thunks';
+import { IAuthState } from '../../../common/types/auth';
 
-const initialState = {
+const initialState: IAuthState = {
   user: {
     email: '',
     username: '',
-    id: '',
-    roles: [],
-    token: localStorage.getItem('token') || '',
-    verifyLink: '',
+    uid: '',
   },
   isLoading: false,
 };
@@ -20,20 +19,29 @@ const authSlice = createSlice({
       state.isLoading = action.payload;
     },
   },
-  //   extraReducers: (builder) => {
-  //     builder
-  //       .addCase('auth/login/fulfilled', (state, action) => {
-  //         state.isLoading = false;
-  //         state.user = { ...action.payload };
-  //       })
-  //       .addCase('auth/login/rejected', (state, action) => {
-  //         state.isLoading = false;
-  //         console.error('Login failed:', action.error.message);
-  //       })
-  //       .addCase('auth/logout', (state, action) => {
-  //         state.user = initialState.user;
-  //       });
-  //   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+      })
+      .addCase(registerUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state) => {
+        state.isLoading = false;
+      });
+  },
 });
 
 export const { setLoading } = authSlice.actions;

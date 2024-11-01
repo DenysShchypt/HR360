@@ -12,7 +12,9 @@ const Breadcrumbs: FC = () => {
     <div className={styles.nav_box}>
       <nav aria-label="breadcrumb" className={styles.nav_wrap}>
         <h3 className={styles.page_path}>
-          {firstSegment.charAt(0).toUpperCase() + firstSegment.slice(1)}
+          {firstSegment
+            ? firstSegment.charAt(0).toUpperCase() + firstSegment.slice(1)
+            : 'Default Label'}
         </h3>
         <ul className={styles.nav_items}>
           {pathnames.map((value, index) => {

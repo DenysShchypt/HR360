@@ -4,9 +4,10 @@ import Layout from './layout/Layout';
 import ErrorPage from '../pages/ErrorPage';
 import { PrivateRoute } from '../routes/PrivateRouter';
 import { PublicRoute } from '../routes/PublicRoute';
-import { RolesRoute } from '../routes/RolesRoute';
+// import { RolesRoute } from '../routes/RolesRoute';
 import Auth from '../pages/Auth/Auth';
 import DashboardLayout from './DashboardLayout/DashboardLayout';
+import Dashboard from '../pages/Dashboard/Dashboard';
 
 const App: FC = () => {
   return (
@@ -25,29 +26,29 @@ const App: FC = () => {
           element={
             <PrivateRoute
               redirectTo="/login"
-              component={<Navigate to="/staff" />}
+              component={<Navigate to="/dashboard" />}
             />
           }
         />
 
-        <Route path="/staff" element={<DashboardLayout />}>
-          <Route index element={<Navigate to="hr" />} />
-          <Route
-            path="hr"
-            element={
-              <RolesRoute component={<h1>HR Dashboard</h1>} roles={['HR']} />
-            }
-          />
-          <Route
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="employee" element={<Dashboard />}>
+            <Route path="directory" element={<h1>Dashboard directory</h1>} />
+            <Route path="attendance" element={<h1>Dashboard attendance</h1>} />
+            <Route path="requests" element={<h1>Dashboard requests</h1>} />
+            <Route path="absence" element={<h1>Dashboard absence</h1>} />
+          </Route>
+          {/* <Route
             path="employees"
             element={
               <RolesRoute
-                component={<h1>Employee Dashboard</h1>}
+                component={<Dashboard />}
                 roles={['HR', 'Admin', 'Employee']}
               />
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="trainees"
             element={
               <RolesRoute
@@ -64,7 +65,7 @@ const App: FC = () => {
                 roles={['Admin']}
               />
             }
-          />
+          /> */}
         </Route>
       </Route>
       <Route path="*" element={<ErrorPage />} />

@@ -26,7 +26,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.svg",
-    "src/@types/**/*.d.ts"
+    "src/@types/**/*.d.ts",
+    "vite-env.d.ts"
   ],
   "exclude": ["node_modules", "dist"],
   "references": [

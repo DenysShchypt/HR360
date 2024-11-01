@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 const DashboardLayout: FC = () => {
   return (
     <div className="dashboard_container">
-      <Breadcrumbs />
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
