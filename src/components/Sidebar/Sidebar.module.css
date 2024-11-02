@@ -56,6 +56,10 @@
     background-color 0.5s ease;
 }
 
+button.nav_item {
+  width: 100%;
+}
+
 .nav_item:focus,
 .nav_item:hover,
 .nav_item:hover .title_item,

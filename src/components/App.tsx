@@ -1,37 +1,45 @@
-import React, { FC } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import ErrorPage from '../pages/ErrorPage';
 import { PrivateRoute } from '../routes/PrivateRouter';
 import { PublicRoute } from '../routes/PublicRoute';
-// import { RolesRoute } from '../routes/RolesRoute';
 import Auth from '../pages/Auth/Auth';
 import DashboardLayout from './DashboardLayout/DashboardLayout';
 import Dashboard from '../pages/Dashboard/Dashboard';
+import { useAppDispatch } from '../utils/hooks/hooks';
+import { checkCurrentUser } from '../redux/slices/auth/auth.thunks';
 
 const App: FC = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkCurrentUser());
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route
           path="/login"
-          element={<PublicRoute redirectTo="/" component={<Auth />} />}
+          element={<PublicRoute redirectTo="/dashboard" component={<Auth />} />}
         />
         <Route
           path="/register"
-          element={<PublicRoute redirectTo="/" component={<Auth />} />}
+          element={<PublicRoute redirectTo="/dashboard" component={<Auth />} />}
         />
         <Route
           path="/"
           element={
-            <PrivateRoute
-              redirectTo="/login"
-              component={<Navigate to="/dashboard" />}
-            />
+            <PrivateRoute redirectTo="/login" component={<DashboardLayout />} />
           }
         />
 
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute redirectTo="/login" component={<DashboardLayout />} />
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="employee" element={<Dashboard />}>
             <Route path="directory" element={<h1>Dashboard directory</h1>} />
@@ -39,33 +47,6 @@ const App: FC = () => {
             <Route path="requests" element={<h1>Dashboard requests</h1>} />
             <Route path="absence" element={<h1>Dashboard absence</h1>} />
           </Route>
-          {/* <Route
-            path="employees"
-            element={
-              <RolesRoute
-                component={<Dashboard />}
-                roles={['HR', 'Admin', 'Employee']}
-              />
-            }
-          /> */}
-          {/* <Route
-            path="trainees"
-            element={
-              <RolesRoute
-                component={<h1>Dashboard Trainee</h1>}
-                roles={['HR', 'Admin', 'Trainee']}
-              />
-            }
-          />
-          <Route
-            path="admin"
-            element={
-              <RolesRoute
-                component={<h1>Dashboard Admin</h1>}
-                roles={['Admin']}
-              />
-            }
-          /> */}
         </Route>
       </Route>
       <Route path="*" element={<ErrorPage />} />

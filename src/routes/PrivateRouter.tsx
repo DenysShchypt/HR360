@@ -12,8 +12,6 @@ export const PrivateRoute: React.FC<PropTypes> = ({
   component: Component,
   redirectTo = '/',
 }) => {
-  const { isLoggedIn, isLoading } = useAuth();
-  const shouldRedirect = !isLoggedIn && !isLoading;
-
-  return shouldRedirect ? <Navigate to={redirectTo} /> : Component;
+  const { isLoading, isLoggedIn } = useAuth();
+  return !isLoading && !isLoggedIn ? <Navigate to={redirectTo} /> : Component;
 };

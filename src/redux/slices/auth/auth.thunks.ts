@@ -2,8 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   UserCredential,
+  User,
 } from 'firebase/auth';
 import {
   IFormData,
@@ -81,6 +83,63 @@ export const registerUser = createAsyncThunk<
       return rejectWithValue(typedError.message);
     } else {
       return rejectWithValue('An unknown error occurred during registration.');
+    }
+  }
+});
+export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
+  'auth/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      await auth.signOut();
+    } catch (error) {
+      const typedError = error as IError;
+      if (typedError.response?.data?.message) {
+        return rejectWithValue(typedError.response.data.message);
+      } else if (typedError.message) {
+        return rejectWithValue(typedError.message);
+      } else {
+        return rejectWithValue('An unknown error occurred during logout.');
+      }
+    }
+  }
+);
+
+export const checkCurrentUser = createAsyncThunk<
+  IPublicUser | null,
+  void,
+  { rejectValue: string }
+>('auth/checkCurrentUser', async (_, { rejectWithValue }) => {
+  try {
+    const currentUser = await new Promise<User | null>((resolve, reject) => {
+      onAuthStateChanged(
+        auth,
+        (user) => {
+          resolve(user);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+
+    if (!currentUser) {
+      throw new Error('No user is currently logged in.');
+    }
+    const docRef = doc(db, 'Users', currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data() as IPublicUser;
+
+    return userData;
+  } catch (error) {
+    const typedError = error as IError;
+    if (typedError.response?.data?.message) {
+      return rejectWithValue(typedError.response.data.message);
+    } else if (typedError.message) {
+      return rejectWithValue(typedError.message);
+    } else {
+      return rejectWithValue(
+        'An unknown error occurred while checking current user.'
+      );
     }
   }
 });

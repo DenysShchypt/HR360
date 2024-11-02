@@ -2,8 +2,9 @@ import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { NavigateFunction } from 'react-router-dom';
 
 export interface IAuthState {
-  user: IPublicUser;
+  user: IPublicUser | null;
   isLoading: boolean;
+  isLoggedIn: boolean;
 }
 
 export interface IPublicUser {
