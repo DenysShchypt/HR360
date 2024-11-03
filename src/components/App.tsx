@@ -4,11 +4,12 @@ import Layout from './layout/Layout';
 import ErrorPage from '../pages/ErrorPage';
 import { PrivateRoute } from '../routes/PrivateRouter';
 import { PublicRoute } from '../routes/PublicRoute';
-import Auth from '../pages/Auth/Auth';
 import DashboardLayout from './DashboardLayout/DashboardLayout';
-import Dashboard from '../pages/Dashboard/Dashboard';
 import { useAppDispatch } from '../utils/hooks/hooks';
 import { checkCurrentUser } from '../redux/slices/auth/auth.thunks';
+
+const AuthPage = React.lazy(() => import('../pages/Auth/Auth'));
+const DashboardPage = React.lazy(() => import('../pages/Dashboard/Dashboard'));
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,11 +22,15 @@ const App: FC = () => {
       <Route element={<Layout />}>
         <Route
           path="/login"
-          element={<PublicRoute redirectTo="/dashboard" component={<Auth />} />}
+          element={
+            <PublicRoute redirectTo="/dashboard" component={<AuthPage />} />
+          }
         />
         <Route
           path="/register"
-          element={<PublicRoute redirectTo="/dashboard" component={<Auth />} />}
+          element={
+            <PublicRoute redirectTo="/dashboard" component={<AuthPage />} />
+          }
         />
         <Route
           path="/"
@@ -40,8 +45,8 @@ const App: FC = () => {
             <PrivateRoute redirectTo="/login" component={<DashboardLayout />} />
           }
         >
-          <Route index element={<Dashboard />} />
-          <Route path="employee" element={<Dashboard />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="employee" element={<DashboardPage />}>
             <Route path="directory" element={<h1>Dashboard directory</h1>} />
             <Route path="attendance" element={<h1>Dashboard attendance</h1>} />
             <Route path="requests" element={<h1>Dashboard requests</h1>} />

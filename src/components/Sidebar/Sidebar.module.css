@@ -40,7 +40,8 @@
   gap: 8px;
 }
 
-.nav_item {
+.nav_item,
+.nav_item_logout {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -56,7 +57,7 @@
     background-color 0.5s ease;
 }
 
-button.nav_item {
+.nav_item_logout {
   width: 100%;
 }
 
@@ -69,11 +70,19 @@ button.nav_item {
   transition: color 0.3s ease;
 }
 
+.nav_item_logout:hover,
+.nav_item_logout:hover .title_item {
+  background-color: var(--active-button-background);
+  color: white;
+  transition: color 0.3s ease;
+}
+
 .title_item {
   text-align: start;
   min-width: 108px;
 }
 
+.nav_item_logout:hover .icon,
 .nav_item:focus .icon,
 .nav_item:hover .icon {
   fill: white;

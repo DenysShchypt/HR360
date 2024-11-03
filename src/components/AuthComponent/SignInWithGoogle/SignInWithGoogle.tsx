@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import styles from './SignInWithGoogle.module.css';
+import styles from './SignInwithGoogle.module.css';
 import { useAppDispatch } from '../../../utils/hooks/hooks';
 import { registerGoogle } from '../../../redux/slices/auth/auth.thunks';
 
-interface ISignInWithGoogleProp {
+interface ISignInwithGoogleProp {
   textButton: string;
 }
 
-const SignInWithGoogle: FC<ISignInWithGoogleProp> = ({ textButton }) => {
+const SignInwithGoogle: FC<ISignInwithGoogleProp> = ({ textButton }) => {
   const dispatch = useAppDispatch();
   return (
     <div className={styles.button_wrap}>
@@ -26,4 +26,4 @@ const SignInWithGoogle: FC<ISignInWithGoogleProp> = ({ textButton }) => {
   );
 };
 
-export default SignInWithGoogle;
+export default SignInwithGoogle;

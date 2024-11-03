@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { IPropsLogin } from '../../../common/types/auth';
-import styles from './SignIn.module.css';
 import { IoMailOpenOutline } from 'react-icons/io5';
 import { GoLock } from 'react-icons/go';
 import { VscSignIn } from 'react-icons/vsc';
-import SignInWithGoogle from '../SignInwithGoogle/SignInwithGoogle';
+import SignInwithGoogle from '../SignInwithGoogle/SignInwithGoogle';
+import { IPropsLogin } from '../../../common/types/auth';
+import styles from './SignIn.module.css';
 
 const SignIn: FC<IPropsLogin> = (props: IPropsLogin) => {
   const {
@@ -54,7 +54,7 @@ const SignIn: FC<IPropsLogin> = (props: IPropsLogin) => {
       <button type="submit" className={styles.button_send_form}>
         LOGIN
       </button>
-      <SignInWithGoogle textButton={'Sign In with Google'} />
+      <SignInwithGoogle textButton={'Sign In with Google'} />
       <div className={styles.forgot_password_wrap}>
         <button type="button" className={styles.auxiliary_button}>
           Forgot Password?

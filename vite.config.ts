@@ -19,6 +19,16 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react-vendor';
+            if (id.includes('firebase')) return 'firebase-vendor';
+          }
+        },
+      },
+    },
   },
   esbuild: {
     jsxFactory: 'React.createElement',
