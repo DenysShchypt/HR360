@@ -161,7 +161,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                   dispatch(logout());
                   navigate('/');
                 }}
-                className={styles.nav_item}
+                className={styles.nav_item_logout}
               >
                 <RiLogoutBoxLine size={20} className={styles.icon} />
                 {isSidebarOpen && 'Logout'}
