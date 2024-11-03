@@ -11,6 +11,7 @@ export interface IPublicUser {
   uid: string;
   username?: string;
   email: string;
+  photo?: string;
 }
 
 export interface IFormData extends FieldValues {

@@ -6,6 +6,10 @@ import {
   signInWithEmailAndPassword,
   UserCredential,
   User,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
 } from 'firebase/auth';
 import {
   IFormData,
@@ -139,6 +143,61 @@ export const checkCurrentUser = createAsyncThunk<
     } else {
       return rejectWithValue(
         'An unknown error occurred while checking current user.'
+      );
+    }
+  }
+});
+
+export const registerGoogle = createAsyncThunk<
+  IPublicUser | null,
+  void,
+  { rejectValue: string }
+>('auth/registerGoogle', async (_, { rejectWithValue }) => {
+  try {
+    const provider = new GoogleAuthProvider();
+    let result;
+
+    result = await getRedirectResult(auth);
+    if (!result) {
+      try {
+        result = await signInWithPopup(auth, provider);
+      } catch (popupError) {
+        if (popupError.message.includes('popup-closed-by-user')) {
+          await signInWithRedirect(auth, provider);
+          return null;
+        } else {
+          throw popupError;
+        }
+      }
+    }
+
+    if (result && result.user) {
+      const user = result.user;
+
+      await setDoc(doc(db, 'Users', user.uid), {
+        email: user.email,
+        username: user.displayName,
+        photo: user.photoURL,
+      });
+
+      const docRef = doc(db, 'Users', user.uid);
+      const docSnap = await getDoc(docRef);
+      const userData = docSnap.data() as IPublicUser;
+
+      return userData;
+    }
+
+    return null;
+  } catch (error) {
+    const typedError = error as IError;
+
+    if (typedError.response?.data?.message) {
+      return rejectWithValue(typedError.response.data.message);
+    } else if (typedError.message) {
+      return rejectWithValue(typedError.message);
+    } else {
+      return rejectWithValue(
+        'An unknown error occurred while registering with Google.'
       );
     }
   }

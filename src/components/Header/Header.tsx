@@ -17,8 +17,11 @@ import userUrl from '../../assets/user.svg';
 import styles from './Header.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import DropdownUserMenu from '../DropdownUserMenu/DropdownUserMenu';
+import { useAppSelector } from '../../utils/hooks/hooks';
 
 const Header: FC = () => {
+  const userName = useAppSelector((state) => state.auth.user?.username);
+  const userPhotoUrl = useAppSelector((state) => state.auth.user?.photo);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [dropdownUserMenu, setDropdownUserMenu] = useState<boolean | null>(
     null
@@ -59,9 +62,13 @@ const Header: FC = () => {
       </div>
       <div className={styles.settings_wrap}>
         <div className={styles.greed_wrap}>
-          <p className={styles.greed}>
-            Welcome back, <span className={styles.name}>Barbara</span>
-          </p>
+          {userName ? (
+            <p className={styles.greed}>
+              Welcome back, <span className={styles.name}>{userName}</span>
+            </p>
+          ) : (
+            <p className={styles.greed}>Welcome to our application</p>
+          )}
           <IoSunnyOutline />
         </div>
         <div className={styles.info_user_wrap}>
@@ -89,7 +96,13 @@ const Header: FC = () => {
             </li>
           </ul>
           <div className={styles.setting_user_wrap}>
-            <img src={userUrl} alt="user-avatar" width="40" height="40" />
+            <img
+              src={userPhotoUrl ? `${userPhotoUrl}` : userUrl}
+              alt="user-avatar"
+              width="40"
+              height="40"
+              className={styles.avatar_user}
+            />
             <div className={styles.setting_arrow_wrap}>
               <button
                 type="button"

@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { checkCurrentUser, login, logout, registerUser } from './auth.thunks';
+import {
+  checkCurrentUser,
+  login,
+  logout,
+  registerGoogle,
+  registerUser,
+} from './auth.thunks';
 import { IAuthState } from '../../../common/types/auth';
 
 const initialState: IAuthState = {
@@ -7,6 +13,7 @@ const initialState: IAuthState = {
     email: '',
     username: '',
     uid: '',
+    photo: '',
   },
   isLoading: false,
   isLoggedIn: false,
@@ -63,6 +70,17 @@ const authSlice = createSlice({
       })
       .addCase(checkCurrentUser.rejected, (state) => {
         state.user = null;
+        state.isLoading = false;
+      })
+      .addCase(registerGoogle.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerGoogle.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(registerGoogle.rejected, (state) => {
         state.isLoading = false;
       });
   },
