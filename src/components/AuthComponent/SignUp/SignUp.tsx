@@ -4,6 +4,7 @@ import { FiUser } from 'react-icons/fi';
 import { IoMailOpenOutline } from 'react-icons/io5';
 import { GoLock } from 'react-icons/go';
 import { IPropsRegister } from '../../../common/types/auth';
+import SignInWithGoogle from '../SignInwithGoogle/SignInwithGoogle';
 
 const SignUp: FC<IPropsRegister> = (props: IPropsRegister) => {
   const {
@@ -70,6 +71,7 @@ const SignUp: FC<IPropsRegister> = (props: IPropsRegister) => {
       <button type="submit" className={styles.button_send_form}>
         REGISTER
       </button>
+      <SignInWithGoogle textButton={'Sign Up with Google'} />
       <div className={styles.forgot_account_wrap}>
         <button
           className={styles.auxiliary_button}
