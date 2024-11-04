@@ -10,6 +10,9 @@ import { checkCurrentUser } from '../redux/slices/auth/auth.thunks';
 
 const AuthPage = React.lazy(() => import('../pages/Auth/Auth'));
 const DashboardPage = React.lazy(() => import('../pages/Dashboard/Dashboard'));
+const EmployeeDirectoryPage = React.lazy(
+  () => import('../pages/Dashboard/Employee/EmployeeDirectory')
+);
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -47,7 +50,7 @@ const App: FC = () => {
         >
           <Route index element={<DashboardPage />} />
           <Route path="employee" element={<DashboardPage />}>
-            <Route path="directory" element={<h1>Dashboard directory</h1>} />
+            <Route path="directory" element={<EmployeeDirectoryPage />} />
             <Route path="attendance" element={<h1>Dashboard attendance</h1>} />
             <Route path="requests" element={<h1>Dashboard requests</h1>} />
             <Route path="absence" element={<h1>Dashboard absence</h1>} />
