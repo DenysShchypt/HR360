@@ -24,32 +24,27 @@ const App: FC = () => {
     <Routes>
       <Route element={<Layout />}>
         <Route
-          path="/login"
-          element={
-            <PublicRoute redirectTo="/dashboard" component={<AuthPage />} />
-          }
-        />
-        <Route
           path="/register"
           element={
             <PublicRoute redirectTo="/dashboard" component={<AuthPage />} />
           }
         />
         <Route
-          path="/"
+          path="/login"
           element={
-            <PrivateRoute redirectTo="/login" component={<DashboardLayout />} />
+            <PublicRoute redirectTo="/dashboard" component={<AuthPage />} />
           }
         />
-
+        <Route
+          path="/"
+          element={<PrivateRoute component={<DashboardLayout />} />}
+        />
         <Route
           path="/dashboard"
-          element={
-            <PrivateRoute redirectTo="/login" component={<DashboardLayout />} />
-          }
+          element={<PrivateRoute component={<DashboardLayout />} />}
         >
           <Route index element={<DashboardPage />} />
-          <Route path="employee" element={<DashboardPage />}>
+          <Route path="employee">
             <Route path="directory" element={<EmployeeDirectoryPage />} />
             <Route path="attendance" element={<h1>Dashboard attendance</h1>} />
             <Route path="requests" element={<h1>Dashboard requests</h1>} />

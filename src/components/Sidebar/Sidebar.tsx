@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { BsGrid, BsGraphUp } from 'react-icons/bs';
 import { GoPersonAdd } from 'react-icons/go';
@@ -13,7 +13,7 @@ import { SiSimpleanalytics } from 'react-icons/si';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import styles from './Sidebar.module.css';
-import { useAppDispatch } from '../../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { logout } from '../../redux/slices/auth/auth.thunks';
 
 interface ISidebarProps {
@@ -24,11 +24,24 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [openGroups, setOpenGroups] = useState<{ [key: string]: boolean }>({});
+  const isLoginUser = useAppSelector((state) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    const savedGroups = localStorage.getItem('openGroups');
+    if (savedGroups) {
+      setOpenGroups(JSON.parse(savedGroups));
+    }
+  }, []);
+
   const toggleGroup = (group: string) => {
-    setOpenGroups((prev) => ({
-      ...prev,
-      [group]: !prev[group],
-    }));
+    setOpenGroups((prev) => {
+      const updateGroups = {
+        ...prev,
+        [group]: !prev[group],
+      };
+      localStorage.setItem('openGroups', JSON.stringify(updateGroups));
+      return updateGroups;
+    });
   };
 
   return (
@@ -39,7 +52,10 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
         <nav className={styles.nav}>
           <ul className={styles.list_wrap}>
             <li className={styles.list_item}>
-              <NavLink to="/dashboard" className={styles.nav_item}>
+              <NavLink
+                to={isLoginUser ? '/dashboard' : '/login'}
+                className={styles.nav_item}
+              >
                 <BsGrid size={20} className={styles.icon} />
                 {isSidebarOpen && 'Dashboard'}
               </NavLink>
@@ -61,22 +77,50 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
               {openGroups['employee'] && (
                 <ul className={styles.list_sub_items}>
                   <li className={styles.sub_item}>
-                    <NavLink to="/dashboard/employee/directory">
+                    <NavLink
+                      to={
+                        isLoginUser ? '/dashboard/employee/directory' : '/login'
+                      }
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${styles.active} ${styles.sub_item_link}`
+                          : styles.sub_item_link
+                      }
+                    >
                       Employee directory
                     </NavLink>
                   </li>
                   <li className={styles.sub_item}>
-                    <NavLink to="/dashboard/employee/attendance">
+                    <NavLink
+                      to={
+                        isLoginUser
+                          ? '/dashboard/employee/attendance'
+                          : '/login'
+                      }
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${styles.active} ${styles.sub_item_link}`
+                          : styles.sub_item_link
+                      }
+                    >
                       Attendance
                     </NavLink>
                   </li>
                   <li className={styles.sub_item}>
-                    <NavLink to="/dashboard/employee/requests">
+                    <NavLink
+                      to={
+                        isLoginUser ? '/dashboard/employee/requests' : '/login'
+                      }
+                    >
                       Leave requests
                     </NavLink>
                   </li>
                   <li className={styles.sub_item}>
-                    <NavLink to="/dashboard/employee/absence">
+                    <NavLink
+                      to={
+                        isLoginUser ? '/dashboard/employee/absence' : '/login'
+                      }
+                    >
                       Absence Trends
                     </NavLink>
                   </li>
@@ -157,9 +201,9 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
             <li>
               <button
                 type="button"
-                onClick={() => {
-                  dispatch(logout());
-                  navigate('/');
+                onClick={async () => {
+                  await dispatch(logout());
+                  navigate('/login');
                 }}
                 className={styles.nav_item_logout}
               >

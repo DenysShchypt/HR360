@@ -22,11 +22,7 @@ const initialState: IAuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setLoading(state, action) {
-      state.isLoading = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -86,5 +82,4 @@ const authSlice = createSlice({
   },
 });
 
-export const { setLoading } = authSlice.actions;
 export const authSliceReducer = authSlice.reducer;

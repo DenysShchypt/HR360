@@ -1,14 +1,13 @@
 import React, { FC, useState } from 'react';
-import styles from './EmployeeDirectory.module.css';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 import { FaArrowRightLong } from 'react-icons/fa6';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperClass } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { departments } from '../../../mockData/departments';
+import styles from './EmployeeDirectory.module.css';
 
 const EmployeeDirectory: FC = () => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(
