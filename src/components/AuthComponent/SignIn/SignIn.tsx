@@ -7,12 +7,7 @@ import { IPropsLogin } from '../../../common/types/auth';
 import styles from './SignIn.module.css';
 
 const SignIn: FC<IPropsLogin> = (props: IPropsLogin) => {
-  const {
-    navigate,
-    register,
-    errors,
-    // loading
-  } = props;
+  const { navigate, register, errors } = props;
   return (
     <>
       <div className={styles.inputs_wrap}>
