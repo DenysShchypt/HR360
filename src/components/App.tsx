@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import ErrorPage from '../pages/ErrorPage';
@@ -16,9 +16,19 @@ const EmployeeDirectoryPage = React.lazy(
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    dispatch(checkCurrentUser());
+    const checkUser = async () => {
+      await dispatch(checkCurrentUser());
+      setIsLoading(false);
+    };
+
+    checkUser();
   }, [dispatch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Routes>

@@ -82,7 +82,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                         isLoginUser ? '/dashboard/employee/directory' : '/login'
                       }
                       className={({ isActive }) =>
-                        isActive
+                        isActive && isLoginUser
                           ? `${styles.active} ${styles.sub_item_link}`
                           : styles.sub_item_link
                       }
@@ -98,7 +98,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                           : '/login'
                       }
                       className={({ isActive }) =>
-                        isActive
+                        isActive && isLoginUser
                           ? `${styles.active} ${styles.sub_item_link}`
                           : styles.sub_item_link
                       }
