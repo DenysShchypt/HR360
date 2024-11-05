@@ -135,4 +135,14 @@
   left: 20px;
   transform: translateY(-50%);
   display: block;
+  background-color: var(--active-button-background);
+}
+
+.sub_item_link {
+  transition: color 0.3s ease;
+}
+
+.sub_item_link.active {
+  font-weight: 500;
+  color: var(--active-button-background);
 }
