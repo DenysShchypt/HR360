@@ -8,3 +8,8 @@ export const timePart = now.toLocaleTimeString('en-US', {
   minute: 'numeric',
   hour12: true,
 });
+
+export const dateDayMonth: string = now.toLocaleDateString('en-GB', {
+  day: '2-digit',
+  month: '2-digit',
+});

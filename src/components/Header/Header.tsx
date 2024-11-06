@@ -13,7 +13,6 @@ import {
 } from 'react-icons/io';
 import { CiSettings } from 'react-icons/ci';
 import logoUrl from '../../assets/logo.svg';
-import userUrl from '../../assets/user.svg';
 import styles from './Header.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import DropdownUserMenu from '../DropdownUserMenu/DropdownUserMenu';
@@ -97,7 +96,11 @@ const Header: FC = () => {
           </ul>
           <div className={styles.setting_user_wrap}>
             <img
-              src={userPhotoUrl ? `${userPhotoUrl}` : userUrl}
+              src={
+                userPhotoUrl
+                  ? `${userPhotoUrl}`
+                  : 'https://avatar.iran.liara.run/public'
+              }
               alt="user-avatar"
               width="40"
               height="40"
