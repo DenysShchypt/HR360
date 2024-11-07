@@ -3,12 +3,12 @@ import { datePart, timePart } from '../../utils/helpers/time';
 import styles from './Time.module.css';
 
 const Time: FC = () => {
-  const [time, setTime] = useState(timePart);
+  const [time, setTime] = useState('');
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTime(timePart);
-    }, 60000);
+    }, 30000);
 
     return () => clearInterval(intervalId);
   }, []);

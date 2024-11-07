@@ -82,8 +82,12 @@
   right: 10px;
 }
 
-.arrow_forward:hover .icon_arrow,
-.arrow_back:hover .icon_arrow {
+.icon_arrow {
   fill: var(--active-button-background);
-  transition: fill 0.3s ease;
+  opacity: 0.8;
+}
+
+.icon_arrow:hover {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }

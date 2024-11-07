@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 import { FaArrowRightLong } from 'react-icons/fa6';
@@ -7,23 +7,30 @@ import { Swiper as SwiperClass } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import EmployeesTable from '../../../components/EmployeesTable/EmployeesTable';
-import { departments } from '../../../mockData/departments';
 import styles from './EmployeeDirectory.module.css';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks/hooks';
+import { fetchDepartments } from '../../../redux/slices/departments/departments.thunks';
 
 const EmployeeDirectory: FC = () => {
+  const dispatch = useAppDispatch();
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(
     null
   );
+  const departments = useAppSelector((state) => state.departments.departments);
+  useEffect(() => {
+    dispatch(fetchDepartments());
+  }, [dispatch]);
   return (
     <>
       <div className={styles.swipe_wrap}>
         <Swiper
           speed={500}
-          slidesPerView="auto"
+          slidesPerView={Math.min(departments.length, 3)}
           grabCursor={true}
           centeredSlides={false}
           spaceBetween={24}
-          loop={true}
+          slidesPerGroup={1}
+          loop={departments.length > 3}
           onSwiper={(swiper) => setSwiperInstance(swiper)}
         >
           {departments.map((department) => (
