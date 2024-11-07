@@ -3,6 +3,9 @@ const now = new Date();
 export const datePart = `${now.getDate()} ${now.toLocaleString('en-US', {
   month: 'long',
 })}, ${now.getFullYear()}`;
+export const datePartShort = `${now.getDate()} ${now.toLocaleString('en-US', {
+  month: 'short',
+})}, ${now.getFullYear()}`;
 
 export const timePart = () => {
   const now = new Date();

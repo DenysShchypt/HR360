@@ -17,10 +17,11 @@ import styles from './Header.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import DropdownUserMenu from '../DropdownUserMenu/DropdownUserMenu';
 import { useAppSelector } from '../../utils/hooks/hooks';
+import { selectUserPhoto } from '../../redux/slices/auth/auth.selectors';
 
 const Header: FC = () => {
   const userName = useAppSelector((state) => state.auth.user?.username);
-  const userPhotoUrl = useAppSelector((state) => state.auth.user?.photo);
+  const userPhotoUrl = useAppSelector(selectUserPhoto);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [dropdownUserMenu, setDropdownUserMenu] = useState<boolean | null>(
     null

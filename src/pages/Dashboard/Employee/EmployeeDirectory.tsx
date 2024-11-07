@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
-import { FaArrowLeftLong } from 'react-icons/fa6';
-import { FaArrowRightLong } from 'react-icons/fa6';
+import {
+  MdOutlineArrowForwardIos,
+  MdOutlineArrowBackIosNew,
+} from 'react-icons/md';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperClass } from 'swiper';
 import 'swiper/css';
@@ -10,13 +12,15 @@ import EmployeesTable from '../../../components/EmployeesTable/EmployeesTable';
 import styles from './EmployeeDirectory.module.css';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks/hooks';
 import { fetchDepartments } from '../../../redux/slices/departments/departments.thunks';
+import { selectDepartments } from '../../../redux/slices/departments/departments.selectors';
+import EmployeesFilter from '../../../components/EmployeesFilter/EmployeesFilter';
 
 const EmployeeDirectory: FC = () => {
   const dispatch = useAppDispatch();
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(
     null
   );
-  const departments = useAppSelector((state) => state.departments.departments);
+  const departments = useAppSelector(selectDepartments);
   useEffect(() => {
     dispatch(fetchDepartments());
   }, [dispatch]);
@@ -63,7 +67,7 @@ const EmployeeDirectory: FC = () => {
           type="button"
           onClick={() => swiperInstance?.slidePrev()}
         >
-          <FaArrowRightLong size={30} className={styles.icon_arrow} />
+          <MdOutlineArrowForwardIos size={30} className={styles.icon_arrow} />
         </button>
         <button
           className={styles.arrow_back}
@@ -72,9 +76,10 @@ const EmployeeDirectory: FC = () => {
             swiperInstance?.slideNext();
           }}
         >
-          <FaArrowLeftLong size={30} className={styles.icon_arrow} />
+          <MdOutlineArrowBackIosNew size={30} className={styles.icon_arrow} />
         </button>
       </div>
+      <EmployeesFilter />
       <EmployeesTable />
     </>
   );

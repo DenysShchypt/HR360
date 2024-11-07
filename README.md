@@ -8,3 +8,4 @@
 6. npm run prepare
 
 Deploy terminal : vercel --prod
+https://mockapi.io/
