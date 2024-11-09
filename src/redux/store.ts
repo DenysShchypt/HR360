@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authSliceReducer } from './slices/auth/auth.slice';
 import { departmentsSliceReducer } from './slices/departments/departments.slice';
+import { employeesSliceReducer } from './slices/employees/employees.slice';
 
 const store = configureStore({
   reducer: {
     auth: authSliceReducer,
     departments: departmentsSliceReducer,
+    employees: employeesSliceReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -100,7 +100,7 @@ const Header: FC = () => {
               src={
                 userPhotoUrl
                   ? `${userPhotoUrl}`
-                  : 'https://avatar.iran.liara.run/public'
+                  : 'https://i.pravatar.cc/150?img=50'
               }
               alt="user-avatar"
               width="40"
