@@ -2,12 +2,12 @@ import React, { FC, useEffect } from 'react';
 import styles from './EmployeesTable.module.css';
 import { dateDayMonth } from '../../utils/helpers/time';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
-import { selectAllEmployees } from '../../redux/slices/employees/employees.selectors';
+import { selectVisibleEmployees } from '../../redux/slices/employees/employees.selectors';
 import { fetchEmployees } from '../../redux/slices/employees/employees.thunks';
 
 const EmployeesTable: FC = () => {
   const dispatch = useAppDispatch();
-  const employees = useAppSelector(selectAllEmployees);
+  const employees = useAppSelector(selectVisibleEmployees);
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);

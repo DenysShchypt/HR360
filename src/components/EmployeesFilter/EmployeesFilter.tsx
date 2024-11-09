@@ -6,8 +6,11 @@ import { GrCloudUpload } from 'react-icons/gr';
 import { MdOutlineCleaningServices } from 'react-icons/md';
 import styles from './EmployeesFilter.module.css';
 import { datePartShort } from '../../utils/helpers/time';
+import { useAppDispatch } from '../../utils/hooks/hooks';
+import { statusFilter } from '../../redux/slices/employees/filter/filter.slice';
 
 const EmployeesFilter: FC = () => {
+  const dispatch = useAppDispatch();
   return (
     <div className={styles.box}>
       <label className={styles.input_wrap}>
@@ -19,7 +22,7 @@ const EmployeesFilter: FC = () => {
           name="filter"
           autoComplete="on"
           placeholder="Search by name, role, department..."
-          // onChange={(e) => dispatch(statusFilter(e.target.value))}
+          onChange={(e) => dispatch(statusFilter(e.target.value))}
           className={styles.input_data}
         />
         <button className={styles.clear}>

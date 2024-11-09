@@ -15,3 +15,7 @@ export interface IEmployee {
   checkOut: string;
   overTime: string;
 }
+
+export interface IFilter {
+  filter: string;
+}
