@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import { LuListFilter } from 'react-icons/lu';
 import { PiCalendar } from 'react-icons/pi';
@@ -8,9 +8,16 @@ import styles from './EmployeesFilter.module.css';
 import { datePartShort } from '../../utils/helpers/time';
 import { useAppDispatch } from '../../utils/hooks/hooks';
 import { statusFilter } from '../../redux/slices/employees/filter/filter.slice';
+import SelectDepartment from './SelectDepartment/SelectDepartment';
+// import MainModal from '../Modal/MainModal';
 
 const EmployeesFilter: FC = () => {
   const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <div className={styles.box}>
       <label className={styles.input_wrap}>
@@ -30,16 +37,15 @@ const EmployeesFilter: FC = () => {
         </button>
       </label>
       <div className={styles.filter_wrap}>
-        <button className={styles.filter_button}>
+        <button className={styles.filter_button} onClick={toggleModal}>
           <span className={styles.filter_text}>Filter</span>
           <LuListFilter size={16} />
         </button>
       </div>
       <div className={styles.data_box}>
-        <label className={styles.select_wrap}>
-          All Departments
-          <select name="departments" className={styles.select_button}></select>
-        </label>
+        <div className={styles.select_wrap}>
+          <SelectDepartment />
+        </div>
         <div className={styles.calendar_wrap}>
           <button className={styles.calendar_button}>
             <PiCalendar size={20} />
@@ -53,6 +59,11 @@ const EmployeesFilter: FC = () => {
           </button>
         </div>
       </div>
+      {/* {isModalOpen && (
+        <MainModal closeModal={toggleModal}>
+          <FilterModal closeModal={() => setIsModalOpen(false)} />
+        </MainModal>
+      )} */}
     </div>
   );
 };

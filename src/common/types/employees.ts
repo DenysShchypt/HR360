@@ -18,4 +18,5 @@ export interface IEmployee {
 
 export interface IFilter {
   filter: string;
+  departments: string;
 }

@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { BsXLg } from 'react-icons/bs'; // Assuming this is the correct icon
-import styles from './MainModal.module.css'; // Assuming this is the CSS module for styles
+import { BsXLg } from 'react-icons/bs';
+import styles from './MainModal.module.css';
 
 interface IMainModalProps {
   closeModal: () => void;
   children: React.ReactNode;
-  closeButton: boolean;
-  fullScreen: boolean;
+  closeButton?: boolean;
+  fullScreen?: boolean;
 }
 
 const modalRoot = document.querySelector('#modal-root');

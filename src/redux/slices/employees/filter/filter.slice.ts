@@ -3,6 +3,7 @@ import { IFilter } from '../../../../common/types/employees';
 
 const initialState: IFilter = {
   filter: '',
+  departments: '',
 };
 
 const filterSlice = createSlice({
@@ -12,8 +13,11 @@ const filterSlice = createSlice({
     statusFilter: (state, action) => {
       state.filter = action.payload;
     },
+    departmentsFilter: (state, action) => {
+      state.departments = action.payload;
+    },
   },
 });
 
-export const { statusFilter } = filterSlice.actions;
+export const { statusFilter, departmentsFilter } = filterSlice.actions;
 export const filterReducer = filterSlice.reducer;
