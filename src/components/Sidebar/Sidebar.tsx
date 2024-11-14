@@ -41,7 +41,6 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
         [group]: !prev[group],
       };
       localStorage.setItem('openGroups', JSON.stringify(updateGroups));
-      console.log(isLoginUser);
       return updateGroups;
     });
   };

@@ -58,28 +58,3 @@ const SelectDepartment: FC = () => {
 };
 
 export default SelectDepartment;
-
-//   const handleFilter = (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     const form = e.currentTarget;
-//     const formData = new FormData(form);
-
-//     formData.forEach((value, key) => {
-//       console.log(`${key}: ${value}`);
-//     });
-//   };
-
-{
-  /* <label className={styles.custom_sub_checkbox}>
-        <input type="checkbox" name="username" value="name" />
-        <p className={styles.text}>User name</p>
-      </label>
-      <label className={styles.custom_sub_checkbox}>
-        <input type="checkbox" name="role" value="role" />
-        <p className={styles.text}>Role</p>
-      </label>
-      <label className={styles.custom_sub_checkbox}>
-        <input type="checkbox" name="department" value="department" />
-        <p className={styles.text}>Department</p>
-      </label> */
-}

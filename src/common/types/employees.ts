@@ -14,9 +14,10 @@ export interface IEmployee {
   checkIn: string;
   checkOut: string;
   overTime: string;
+  department: string;
 }
 
 export interface IFilter {
-  filter: string;
+  filter: string[];
   departments: string;
 }

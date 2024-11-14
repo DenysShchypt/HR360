@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IFilter } from '../../../../common/types/employees';
 
 const initialState: IFilter = {
-  filter: '',
+  filter: [],
   departments: '',
 };
 

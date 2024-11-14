@@ -6,16 +6,27 @@ import { GrCloudUpload } from 'react-icons/gr';
 import { MdOutlineCleaningServices } from 'react-icons/md';
 import styles from './EmployeesFilter.module.css';
 import { datePartShort } from '../../utils/helpers/time';
-import { useAppDispatch } from '../../utils/hooks/hooks';
-import { statusFilter } from '../../redux/slices/employees/filter/filter.slice';
 import SelectDepartment from './SelectDepartment/SelectDepartment';
-// import MainModal from '../Modal/MainModal';
+import MainModal from '../Modal/MainModal';
+import FilterModal from '../Modal/FilterModal/FilterModal';
 
-const EmployeesFilter: FC = () => {
-  const dispatch = useAppDispatch();
+interface IEmployeesFilterProps {
+  setSearchParams: (value: string) => void;
+  params: string;
+}
+
+const EmployeesFilter: FC<IEmployeesFilterProps> = ({
+  setSearchParams,
+  params,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsModalOpen((prevState) => !prevState);
+  };
+  const updateQueryString = (filters: string) => {
+    const nextParams = filters !== '' ? { filters } : {};
+    setSearchParams(nextParams as string);
   };
 
   return (
@@ -28,8 +39,9 @@ const EmployeesFilter: FC = () => {
           type="text"
           name="filter"
           autoComplete="on"
+          value={params}
           placeholder="Search by name, role, department..."
-          onChange={(e) => dispatch(statusFilter(e.target.value))}
+          onChange={(e) => updateQueryString(e.target.value)}
           className={styles.input_data}
         />
         <button className={styles.clear}>
@@ -59,11 +71,11 @@ const EmployeesFilter: FC = () => {
           </button>
         </div>
       </div>
-      {/* {isModalOpen && (
+      {isModalOpen && (
         <MainModal closeModal={toggleModal}>
-          <FilterModal closeModal={() => setIsModalOpen(false)} />
+          <FilterModal onClose={toggleModal} />
         </MainModal>
-      )} */}
+      )}
     </div>
   );
 };

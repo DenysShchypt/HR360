@@ -1,17 +1,23 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import styles from './EmployeesTable.module.css';
 import { dateDayMonth } from '../../utils/helpers/time';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
+import { IEmployee } from '../../common/types/employees';
+import { useAppSelector } from '../../utils/hooks/hooks';
 import { selectVisibleEmployees } from '../../redux/slices/employees/employees.selectors';
-import { fetchEmployees } from '../../redux/slices/employees/employees.thunks';
 
-const EmployeesTable: FC = () => {
-  const dispatch = useAppDispatch();
-  const employees = useAppSelector(selectVisibleEmployees);
-  useEffect(() => {
-    dispatch(fetchEmployees());
-  }, [dispatch]);
+interface IEmployeesTableProps {
+  params: string;
+}
+const EmployeesTable: FC<IEmployeesTableProps> = ({ params }) => {
+  const employees = useAppSelector(selectVisibleEmployees) as IEmployee[];
 
+  const filterEmployees = employees.filter(
+    (employee) =>
+      params === '' ||
+      employee.role.toLowerCase().includes(params.toLowerCase()) ||
+      employee.name.toLowerCase().includes(params.toLowerCase()) ||
+      employee.department.toLowerCase().includes(params.toLowerCase())
+  );
   return (
     <div className={styles.table_wrap}>
       <table className={styles.table}>
@@ -28,8 +34,8 @@ const EmployeesTable: FC = () => {
           </tr>
         </thead>
         <tbody>
-          {employees &&
-            employees.map((employee) => {
+          {filterEmployees &&
+            filterEmployees.map((employee) => {
               return (
                 <tr key={employee.id} className={styles.item_row}>
                   <td className={styles.item}>{dateDayMonth}</td>
