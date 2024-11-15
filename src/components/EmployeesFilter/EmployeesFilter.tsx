@@ -12,20 +12,22 @@ import FilterModal from '../Modal/FilterModal/FilterModal';
 
 interface IEmployeesFilterProps {
   setSearchParams: (value: string) => void;
-  params: string;
+  search: string;
+  department: string;
 }
 
 const EmployeesFilter: FC<IEmployeesFilterProps> = ({
   setSearchParams,
-  params,
+  search,
+  department,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen((prevState) => !prevState);
   };
-  const updateQueryString = (filters: string) => {
-    const nextParams = filters !== '' ? { filters } : {};
+  const updateQueryString = (search: string) => {
+    const nextParams = search !== '' ? { search } : '';
     setSearchParams(nextParams as string);
   };
 
@@ -39,8 +41,8 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
           type="text"
           name="filter"
           autoComplete="on"
-          value={params}
-          placeholder="Search by name, role, department..."
+          value={search}
+          placeholder="Search by name, role..."
           onChange={(e) => updateQueryString(e.target.value)}
           className={styles.input_data}
         />
@@ -56,7 +58,10 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
       </div>
       <div className={styles.data_box}>
         <div className={styles.select_wrap}>
-          <SelectDepartment />
+          <SelectDepartment
+            setSearchParams={setSearchParams}
+            department={department}
+          />
         </div>
         <div className={styles.calendar_wrap}>
           <button className={styles.calendar_button}>

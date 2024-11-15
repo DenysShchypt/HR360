@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IFilter } from '../../../../common/types/employees';
 
 const initialState: IFilter = {
-  filter: [],
+  status: [],
+  employment: [],
   departments: '',
 };
 
@@ -11,7 +12,10 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     statusFilter: (state, action) => {
-      state.filter = action.payload;
+      state.status = action.payload;
+    },
+    employmentFilter: (state, action) => {
+      state.employment = action.payload;
     },
     departmentsFilter: (state, action) => {
       state.departments = action.payload;
@@ -19,5 +23,6 @@ const filterSlice = createSlice({
   },
 });
 
-export const { statusFilter, departmentsFilter } = filterSlice.actions;
+export const { statusFilter, departmentsFilter, employmentFilter } =
+  filterSlice.actions;
 export const filterReducer = filterSlice.reducer;

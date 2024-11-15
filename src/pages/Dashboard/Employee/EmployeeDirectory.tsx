@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 
 import EmployeesTable from '../../../components/EmployeesTable/EmployeesTable';
 import EmployeesFilter from '../../../components/EmployeesFilter/EmployeesFilter';
@@ -9,7 +9,12 @@ import { fetchEmployees } from '../../../redux/slices/employees/employees.thunks
 
 const EmployeeDirectory: FC = () => {
   const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const params = useMemo(
+    () => Object.fromEntries([...searchParams]),
+    [searchParams]
+  );
+  const { search, department } = params;
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);
@@ -19,9 +24,10 @@ const EmployeeDirectory: FC = () => {
       <SwiperDepartments />
       <EmployeesFilter
         setSearchParams={setSearchParams}
-        params={searchParams.get('filters') || ''}
+        search={search || ''}
+        department={department || ''}
       />
-      <EmployeesTable params={searchParams.get('filters') || ''} />
+      <EmployeesTable search={search || ''} department={department || ''} />
     </>
   );
 };

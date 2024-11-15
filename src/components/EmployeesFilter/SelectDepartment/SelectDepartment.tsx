@@ -1,35 +1,35 @@
 import React, { FC, useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks/hooks';
+import { useAppSelector } from '../../../utils/hooks/hooks';
 import { selectDepartments } from '../../../redux/slices/departments/departments.selectors';
-import { departmentsFilter } from '../../../redux/slices/employees/filter/filter.slice';
-import styles from './SelectDepartment.module.css';
 
-const SelectDepartment: FC = () => {
+import styles from './SelectDepartment.module.css';
+interface IEmployeesFilterProps {
+  setSearchParams: (value: string) => void;
+  department: string;
+}
+const SelectDepartment: FC<IEmployeesFilterProps> = ({
+  setSearchParams,
+  department,
+}) => {
   const [dropdownArrow, setDropdownArrow] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('All departments');
-  const dispatch = useAppDispatch();
+
   const allDepartments = useAppSelector(selectDepartments);
 
   const toggleDropdown = () => {
     setDropdownArrow((prev) => !prev);
   };
 
-  const handleFilter = (option: string) => {
-    if (!option) {
-      setSelectedOption('All departments');
-    } else {
-      setSelectedOption(option);
-    }
-
-    dispatch(departmentsFilter(option));
+  const handleFilter = (department: string) => {
+    const nextParams = department !== '' ? { department } : ``;
+    setSearchParams(nextParams as string);
     setDropdownArrow(false);
   };
 
   return (
     <div className={styles.select_wrapper}>
       <button onClick={toggleDropdown} className={styles.dropdown_header}>
-        <span>{selectedOption}</span>
+        <span>{department === '' ? 'All departments' : department}</span>
         {dropdownArrow ? (
           <IoIosArrowUp size={16} className={styles.icon_arrow} />
         ) : (

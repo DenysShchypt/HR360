@@ -18,6 +18,7 @@ export interface IEmployee {
 }
 
 export interface IFilter {
-  filter: string[];
+  status: string[];
+  employment: string[];
   departments: string;
 }

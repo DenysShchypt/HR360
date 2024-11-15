@@ -6,18 +6,22 @@ import { useAppSelector } from '../../utils/hooks/hooks';
 import { selectVisibleEmployees } from '../../redux/slices/employees/employees.selectors';
 
 interface IEmployeesTableProps {
-  params: string;
+  search: string;
+  department: string;
 }
-const EmployeesTable: FC<IEmployeesTableProps> = ({ params }) => {
+const EmployeesTable: FC<IEmployeesTableProps> = ({ search, department }) => {
   const employees = useAppSelector(selectVisibleEmployees) as IEmployee[];
+  const filterEmployees = employees.filter((employee) => {
+    const searchInput =
+      search === '' ||
+      employee.role.toLowerCase().includes(search.toLowerCase()) ||
+      employee.name.toLowerCase().includes(search.toLowerCase());
 
-  const filterEmployees = employees.filter(
-    (employee) =>
-      params === '' ||
-      employee.role.toLowerCase().includes(params.toLowerCase()) ||
-      employee.name.toLowerCase().includes(params.toLowerCase()) ||
-      employee.department.toLowerCase().includes(params.toLowerCase())
-  );
+    const matchesDepartment = !department || employee.department === department;
+
+    return searchInput && matchesDepartment;
+  });
+
   return (
     <div className={styles.table_wrap}>
       <table className={styles.table}>
