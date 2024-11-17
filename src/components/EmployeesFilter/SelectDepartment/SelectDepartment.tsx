@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { useAppSelector } from '../../../utils/hooks/hooks';
 import { selectDepartments } from '../../../redux/slices/departments/departments.selectors';
@@ -12,22 +12,40 @@ const SelectDepartment: FC<IEmployeesFilterProps> = ({
   setSearchParams,
   department,
 }) => {
+  const selectRef = useRef<HTMLDivElement>(null);
   const [dropdownArrow, setDropdownArrow] = useState(false);
 
   const allDepartments = useAppSelector(selectDepartments);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
+        setDropdownArrow(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownArrow]);
 
   const toggleDropdown = () => {
     setDropdownArrow((prev) => !prev);
   };
 
   const handleFilter = (department: string) => {
-    const nextParams = department !== '' ? { department } : ``;
-    setSearchParams(nextParams as string);
+    const params = new URLSearchParams(window.location.search);
+    if (department !== '') {
+      params.set('department', department);
+    } else {
+      params.delete('department');
+    }
+    setSearchParams(params.toString());
     setDropdownArrow(false);
   };
 
   return (
-    <div className={styles.select_wrapper}>
+    <div className={styles.select_wrapper} ref={selectRef}>
       <button onClick={toggleDropdown} className={styles.dropdown_header}>
         <span>{department === '' ? 'All departments' : department}</span>
         {dropdownArrow ? (

@@ -3,14 +3,21 @@ import styles from './EmployeesTable.module.css';
 import { dateDayMonth } from '../../utils/helpers/time';
 import { IEmployee } from '../../common/types/employees';
 import { useAppSelector } from '../../utils/hooks/hooks';
-import { selectVisibleEmployees } from '../../redux/slices/employees/employees.selectors';
+import { selectAllEmployees } from '../../redux/slices/employees/employees.selectors';
 
 interface IEmployeesTableProps {
   search: string;
   department: string;
+  status: string[];
+  employment: string[];
 }
-const EmployeesTable: FC<IEmployeesTableProps> = ({ search, department }) => {
-  const employees = useAppSelector(selectVisibleEmployees) as IEmployee[];
+const EmployeesTable: FC<IEmployeesTableProps> = ({
+  search,
+  department,
+  status,
+  employment,
+}) => {
+  const employees = useAppSelector(selectAllEmployees) as IEmployee[];
   const filterEmployees = employees.filter((employee) => {
     const searchInput =
       search === '' ||
@@ -19,7 +26,11 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({ search, department }) => {
 
     const matchesDepartment = !department || employee.department === department;
 
-    return searchInput && matchesDepartment;
+    const showStatus = status.length === 0 || status.includes(employee.status);
+    const showEmployment =
+      employment.length === 0 || employment.includes(employee.employment);
+
+    return searchInput && matchesDepartment && showStatus && showEmployment;
   });
 
   return (

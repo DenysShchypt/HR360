@@ -1,23 +1,19 @@
 import React, { FC } from 'react';
 import styles from './FilterModal.module.css';
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks/hooks';
-import {
-  selectFilterEmployment,
-  selectFilterStatus,
-} from '../../../redux/slices/employees/employees.selectors';
-import {
-  statusFilter,
-  employmentFilter,
-} from '../../../redux/slices/employees/filter/filter.slice';
 
 interface IFilterModalProps {
   onClose: () => void;
+  setSearchParams: (value: string | URLSearchParams) => void;
+  status: string[];
+  employment: string[];
 }
 
-const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
-  const dispatch = useAppDispatch();
-  const chosenCheckboxesStatus = useAppSelector(selectFilterStatus);
-  const chosenCheckboxesEmployment = useAppSelector(selectFilterEmployment);
+const FilterModal: FC<IFilterModalProps> = ({
+  onClose,
+  setSearchParams,
+  status,
+  employment,
+}) => {
   const handleFilter = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onClose();
@@ -28,28 +24,33 @@ const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
   ) => {
     const value: string = e.target.value;
 
-    if (chosenCheckboxesStatus.includes(value)) {
-      const removeCheckbox = chosenCheckboxesStatus.filter(
-        (item) => item !== value
-      );
-      dispatch(statusFilter(removeCheckbox));
+    const params = new URLSearchParams(window.location.search);
+    if (status.includes(value)) {
+      const removeStatuses = status.filter((item) => item !== value);
+      params.delete('status');
+      removeStatuses.forEach((item) => params.append('status', item));
     } else {
-      dispatch(statusFilter([...chosenCheckboxesStatus, value]));
+      const addStatuses = [...status, value];
+      addStatuses.forEach((item) => params.append('status', item));
     }
+    setSearchParams(params.toString());
   };
   const handleCheckboxChangeEmployment = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value: string = e.target.value;
 
-    if (chosenCheckboxesEmployment.includes(value)) {
-      const removeCheckbox = chosenCheckboxesEmployment.filter(
-        (item) => item !== value
-      );
-      dispatch(employmentFilter(removeCheckbox));
+    const params = new URLSearchParams(window.location.search);
+    if (employment.includes(value)) {
+      const removeStatuses = employment.filter((item) => item !== value);
+      params.delete('employment');
+      removeStatuses.forEach((item) => params.append('employment', item));
     } else {
-      dispatch(employmentFilter([...chosenCheckboxesEmployment, value]));
+      const addStatuses = [...employment, value];
+      addStatuses.forEach((item) => params.append('employment', item));
     }
+
+    setSearchParams(params.toString());
   };
   return (
     <form onSubmit={handleFilter} className={styles.filter_wrap}>
@@ -58,9 +59,7 @@ const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
         <div className={styles.box_checkbox}>
           <label
             className={
-              chosenCheckboxesEmployment.find(
-                (checkbox) => checkbox === 'Full-time'
-              )
+              employment.find((checkbox) => checkbox === 'Full-time')
                 ? styles.custom_full_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -75,9 +74,7 @@ const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
           </label>
           <label
             className={
-              chosenCheckboxesEmployment.find(
-                (checkbox) => checkbox === 'Part-time'
-              )
+              employment.find((checkbox) => checkbox === 'Part-time')
                 ? styles.custom_part_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -92,9 +89,7 @@ const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
           </label>
           <label
             className={
-              chosenCheckboxesEmployment.find(
-                (checkbox) => checkbox === 'Contract'
-              )
+              employment.find((checkbox) => checkbox === 'Contract')
                 ? styles.custom_contract_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -114,7 +109,7 @@ const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
         <div className={styles.box_checkbox}>
           <label
             className={
-              chosenCheckboxesStatus.find((checkbox) => checkbox === 'Present')
+              status.find((checkbox) => checkbox === 'Present')
                 ? styles.custom_present_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -129,7 +124,7 @@ const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
           </label>
           <label
             className={
-              chosenCheckboxesStatus.find((checkbox) => checkbox === 'Late')
+              status.find((checkbox) => checkbox === 'Late')
                 ? styles.custom_late_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -144,7 +139,7 @@ const FilterModal: FC<IFilterModalProps> = ({ onClose }) => {
           </label>
           <label
             className={
-              chosenCheckboxesStatus.find((checkbox) => checkbox === 'Absent')
+              status.find((checkbox) => checkbox === 'Absent')
                 ? styles.custom_absent_checkbox
                 : styles.custom_sub_checkbox
             }

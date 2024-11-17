@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import { LuListFilter } from 'react-icons/lu';
 import { PiCalendar } from 'react-icons/pi';
@@ -11,25 +11,43 @@ import MainModal from '../Modal/MainModal';
 import FilterModal from '../Modal/FilterModal/FilterModal';
 
 interface IEmployeesFilterProps {
-  setSearchParams: (value: string) => void;
+  setSearchParams: (value: string | URLSearchParams) => void;
   search: string;
   department: string;
+  status: string[];
+  employment: string[];
 }
 
 const EmployeesFilter: FC<IEmployeesFilterProps> = ({
   setSearchParams,
   search,
   department,
+  status,
+  employment,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
-    setIsModalOpen((prevState) => !prevState);
+    setIsModalOpen((prevState) => {
+      const nextState = !prevState;
+      document.body.style.overflow = nextState ? 'hidden' : '';
+      return nextState;
+    });
   };
+
   const updateQueryString = (search: string) => {
-    const nextParams = search !== '' ? { search } : '';
-    setSearchParams(nextParams as string);
+    const params = new URLSearchParams(window.location.search);
+    if (search !== '') {
+      params.set('search', search);
+    }
+    setSearchParams(params.toString());
   };
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   return (
     <div className={styles.box}>
@@ -78,7 +96,12 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
       </div>
       {isModalOpen && (
         <MainModal closeModal={toggleModal}>
-          <FilterModal onClose={toggleModal} />
+          <FilterModal
+            status={status}
+            employment={employment}
+            setSearchParams={setSearchParams}
+            onClose={toggleModal}
+          />
         </MainModal>
       )}
     </div>

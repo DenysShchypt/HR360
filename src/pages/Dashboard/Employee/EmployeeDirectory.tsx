@@ -10,11 +10,21 @@ import { fetchEmployees } from '../../../redux/slices/employees/employees.thunks
 const EmployeeDirectory: FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const params = useMemo(
-    () => Object.fromEntries([...searchParams]),
-    [searchParams]
-  );
-  const { search, department } = params;
+  const params = useMemo(() => {
+    const entries = Object.fromEntries([...searchParams]);
+    return {
+      ...entries,
+      status: searchParams.getAll('status'),
+      employment: searchParams.getAll('employment'),
+    };
+  }, [searchParams]) as {
+    search?: string;
+    department?: string;
+    status: string[];
+    employment: string[];
+  };
+
+  const { search, department, status, employment } = params;
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);
@@ -26,8 +36,15 @@ const EmployeeDirectory: FC = () => {
         setSearchParams={setSearchParams}
         search={search || ''}
         department={department || ''}
+        status={status || []}
+        employment={employment || []}
       />
-      <EmployeesTable search={search || ''} department={department || ''} />
+      <EmployeesTable
+        search={search || ''}
+        department={department || ''}
+        status={status || []}
+        employment={employment || []}
+      />
     </>
   );
 };

@@ -2,14 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authSliceReducer } from './slices/auth/auth.slice';
 import { departmentsSliceReducer } from './slices/departments/departments.slice';
 import { employeesSliceReducer } from './slices/employees/employees.slice';
-import { filterReducer } from './slices/employees/filter/filter.slice';
+// import { filterReducer } from './slices/employees/filter/filter.slice';
 
 const store = configureStore({
   reducer: {
     auth: authSliceReducer,
     departments: departmentsSliceReducer,
     employees: employeesSliceReducer,
-    filter: filterReducer,
+    // filter: filterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
