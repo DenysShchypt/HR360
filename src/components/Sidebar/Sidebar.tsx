@@ -15,6 +15,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import styles from './Sidebar.module.css';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { logout } from '../../redux/slices/auth/auth.thunks';
+import { selectIsLoggedIn } from '../../redux/slices/auth/auth.selectors';
 
 interface ISidebarProps {
   isSidebarOpen: boolean;
@@ -24,7 +25,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [openGroups, setOpenGroups] = useState<{ [key: string]: boolean }>({});
-  const isLoginUser = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoginUser = useAppSelector(selectIsLoggedIn);
 
   useEffect(() => {
     const savedGroups = localStorage.getItem('openGroups');

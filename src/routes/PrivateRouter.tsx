@@ -10,7 +10,6 @@ interface PropTypes {
 export const PrivateRoute: React.FC<PropTypes> = ({ component: Component }) => {
   const location = useLocation();
   const { isLoggedIn } = useAuth();
-
   return !isLoggedIn ? (
     <Navigate to="/login" state={{ from: location }} />
   ) : (
