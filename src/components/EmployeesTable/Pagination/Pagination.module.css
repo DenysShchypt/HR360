@@ -1,0 +1,22 @@
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page_button {
+  padding: 10px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.page_button:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.page_button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
