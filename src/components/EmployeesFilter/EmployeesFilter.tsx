@@ -39,7 +39,15 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
     const params = new URLSearchParams(window.location.search);
     if (search !== '') {
       params.set('search', search);
+    } else {
+      params.delete('search'); // Remove the search param if empty
     }
+    setSearchParams(params.toString());
+  };
+
+  const handleCleanFilter = () => {
+    const params = new URLSearchParams(window.location.search);
+    params.delete('search');
     setSearchParams(params.toString());
   };
 
@@ -64,7 +72,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
           onChange={(e) => updateQueryString(e.target.value)}
           className={styles.input_data}
         />
-        <button className={styles.clear}>
+        <button className={styles.clear} onClick={handleCleanFilter}>
           <MdOutlineCleaningServices size={16} />
         </button>
       </label>
