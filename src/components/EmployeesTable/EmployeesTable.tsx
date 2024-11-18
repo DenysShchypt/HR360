@@ -41,7 +41,7 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
   }, [employees, search, department, status, employment]);
 
   useEffect(() => {
-    const tableRowPerPage = 5;
+    const tableRowPerPage = 7;
     const indexOfLastTableRow = currentPage * tableRowPerPage;
     const indexOfFirstTableRow = indexOfLastTableRow - tableRowPerPage;
     const paginated = filterEmployees.slice(
@@ -67,61 +67,59 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {filterEmployees &&
-            paginatedEmployees.map((employee) => {
-              return (
-                <tr key={employee.id} className={styles.item_row}>
-                  <td className={styles.item}>{dateDayMonth}</td>
-                  <td className={styles.item_worker}>
-                    <img
-                      src={employee.photo}
-                      alt="worker-avatar"
-                      width="40"
-                      height="40"
-                      className={styles.avatar_worker}
-                    />
-                    <span className={styles.name_worker}>{employee.name}</span>
-                  </td>
-                  <td className={styles.item}>{employee.role}</td>
-                  <td className={styles.item}>
-                    <div
-                      className={
-                        employee.employment === 'Full-time'
-                          ? styles.worker_full
-                          : employee.employment === 'Part-time'
-                            ? styles.worker_part
-                            : styles.worker_contract
-                      }
-                    >
-                      {employee.employment}
-                    </div>
-                  </td>
-                  <td className={styles.item}>
-                    <div
-                      className={
-                        employee.status === 'Present'
-                          ? styles.worker_present
-                          : employee.status !== 'Late'
-                            ? styles.worker_absent
-                            : styles.worker_late
-                      }
-                    >
-                      {employee.status}
-                    </div>
-                  </td>
-                  <td className={styles.item}>{employee.checkIn}</td>
-                  <td className={styles.item}>{employee.checkOut}</td>
-                  <td className={styles.item}>{employee.overTime}</td>
-                </tr>
-              );
-            })}
+          {paginatedEmployees.map((employee) => {
+            return (
+              <tr key={employee.id} className={styles.item_row}>
+                <td className={styles.item}>{dateDayMonth}</td>
+                <td className={styles.item_worker}>
+                  <img
+                    src={employee.photo}
+                    alt="worker-avatar"
+                    width="40"
+                    height="40"
+                    className={styles.avatar_worker}
+                  />
+                  <span className={styles.name_worker}>{employee.name}</span>
+                </td>
+                <td className={styles.item}>{employee.role}</td>
+                <td className={styles.item}>
+                  <div
+                    className={
+                      employee.employment === 'Full-time'
+                        ? styles.worker_full
+                        : employee.employment === 'Part-time'
+                          ? styles.worker_part
+                          : styles.worker_contract
+                    }
+                  >
+                    {employee.employment}
+                  </div>
+                </td>
+                <td className={styles.item}>
+                  <div
+                    className={
+                      employee.status === 'Present'
+                        ? styles.worker_present
+                        : employee.status !== 'Late'
+                          ? styles.worker_absent
+                          : styles.worker_late
+                    }
+                  >
+                    {employee.status}
+                  </div>
+                </td>
+                <td className={styles.item}>{employee.checkIn}</td>
+                <td className={styles.item}>{employee.checkOut}</td>
+                <td className={styles.item}>{employee.overTime}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <Pagination
         filterEmployees={filterEmployees}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        paginatedEmployees={paginatedEmployees}
       />
     </div>
   );
