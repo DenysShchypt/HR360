@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { BsGrid, BsGraphUp } from 'react-icons/bs';
 import { GoPersonAdd } from 'react-icons/go';
 import {
@@ -24,6 +24,7 @@ interface ISidebarProps {
 const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [openGroups, setOpenGroups] = useState<{ [key: string]: boolean }>({});
   const isLoginUser = useAppSelector(selectIsLoggedIn);
 
@@ -44,7 +45,6 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
       return updateGroups;
     });
   };
-
   return (
     <div
       className={`${styles.container_sidebar} ${isSidebarOpen ? styles.open : ''}`}
@@ -55,7 +55,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
             <li className={styles.list_item}>
               <NavLink
                 to={isLoginUser ? '/dashboard' : '/login'}
-                className={styles.nav_item}
+                className={`${styles.nav_item} ${location.pathname === '/dashboard' ? styles.active : ''}`}
               >
                 <BsGrid size={20} className={styles.icon} />
                 {isSidebarOpen && 'Dashboard'}
@@ -98,11 +98,6 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                           ? '/dashboard/employee/attendance'
                           : '/login'
                       }
-                      className={({ isActive }) =>
-                        isActive && isLoginUser
-                          ? `${styles.active} ${styles.sub_item_link}`
-                          : styles.sub_item_link
-                      }
                     >
                       Attendance
                     </NavLink>
@@ -123,6 +118,20 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                       }
                     >
                       Absence Trends
+                    </NavLink>
+                  </li>
+                  <li className={styles.sub_item}>
+                    <NavLink
+                      to={
+                        isLoginUser ? '/dashboard/employee/settings' : '/login'
+                      }
+                      className={({ isActive }) =>
+                        isActive && isLoginUser
+                          ? `${styles.active} ${styles.sub_item_link}`
+                          : styles.sub_item_link
+                      }
+                    >
+                      Employees settings
                     </NavLink>
                   </li>
                 </ul>

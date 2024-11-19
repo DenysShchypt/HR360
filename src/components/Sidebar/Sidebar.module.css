@@ -60,7 +60,7 @@
 .nav_item_logout {
   width: 100%;
 }
-
+.nav_item.active,
 .nav_item:focus,
 .nav_item:hover,
 .nav_item:hover .title_item,
@@ -85,6 +85,11 @@
 .nav_item_logout:hover .icon,
 .nav_item:focus .icon,
 .nav_item:hover .icon {
+  fill: white;
+  transition: fill 0.3s ease;
+}
+
+.nav_item.active .icon {
   fill: white;
   transition: fill 0.3s ease;
 }
