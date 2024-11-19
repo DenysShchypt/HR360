@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useMemo } from 'react';
-
 import EmployeesTable from '../../../components/EmployeesTable/EmployeesTable';
 import EmployeesFilter from '../../../components/EmployeesFilter/EmployeesFilter';
-import SwiperDepartments from '../../../components/SwiperDepartments/SwiperDepartments';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../utils/hooks/hooks';
 import { fetchEmployees } from '../../../redux/slices/employees/employees.thunks';
@@ -31,7 +29,6 @@ const EmployeeDirectory: FC = () => {
 
   return (
     <>
-      <SwiperDepartments />
       <EmployeesFilter
         setSearchParams={setSearchParams}
         search={search || ''}

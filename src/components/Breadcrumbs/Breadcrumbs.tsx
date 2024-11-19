@@ -20,10 +20,9 @@ const Breadcrumbs: FC = () => {
           {pathnames.map((value, index) => {
             const to = `/${pathnames.slice(0, index + 1).join('/')}`;
             const isLast = index === pathnames.length - 1;
-
             return (
               <li key={to}>
-                {!isLast ? (
+                {!isLast && index !== 1 ? (
                   <Link
                     to={to}
                     style={{ textDecoration: 'none', color: '#534feb' }}
@@ -35,7 +34,7 @@ const Breadcrumbs: FC = () => {
                     {value.charAt(0).toUpperCase() + value.slice(1)}
                   </span>
                 )}
-                {!isLast && <span>•</span>}
+                {!isLast && <span className={styles.dot}></span>}
               </li>
             );
           })}
