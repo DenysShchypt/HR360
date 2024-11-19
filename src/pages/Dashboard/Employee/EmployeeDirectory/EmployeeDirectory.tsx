@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import EmployeesTable from '../../../components/EmployeesTable/EmployeesTable';
-import EmployeesFilter from '../../../components/EmployeesFilter/EmployeesFilter';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '../../../utils/hooks/hooks';
-import { fetchEmployees } from '../../../redux/slices/employees/employees.thunks';
+import { useAppDispatch } from '../../../../utils/hooks/hooks';
+import { fetchEmployees } from '../../../../redux/slices/employees/employees.thunks';
+import EmployeesFilter from '../../../../components/EmployeesFilter/EmployeesFilter';
+import EmployeesTable from '../../../../components/EmployeesTable/EmployeesTable';
 
 const EmployeeDirectory: FC = () => {
   const dispatch = useAppDispatch();

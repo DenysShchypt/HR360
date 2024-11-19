@@ -46,7 +46,11 @@ const SelectDepartment: FC<IEmployeesFilterProps> = ({
 
   return (
     <div className={styles.select_wrapper} ref={selectRef}>
-      <button onClick={toggleDropdown} className={styles.dropdown_header}>
+      <button
+        type="button"
+        onClick={toggleDropdown}
+        className={styles.dropdown_header}
+      >
         <span>{department === '' ? 'All departments' : department}</span>
         {dropdownArrow ? (
           <IoIosArrowUp size={16} className={styles.icon_arrow} />
