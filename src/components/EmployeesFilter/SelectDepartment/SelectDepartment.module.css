@@ -81,19 +81,3 @@
   display: block;
   background-color: var(--active-button-background);
 }
-
-.button_apply {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 8px 16px;
-  border: 1px solid var(--secondary-border-color);
-  border-radius: 12px;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-.button_apply:hover {
-  background-color: var(--active-button-background);
-  color: var(--primary-text-color);
-}

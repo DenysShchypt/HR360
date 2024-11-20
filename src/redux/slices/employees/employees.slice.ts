@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IEmployees } from '../../../common/types/employees';
-import { fetchEmployee, fetchEmployees } from './employees.thunks';
+import { addEmployee, fetchEmployee, fetchEmployees } from './employees.thunks';
 
 const initialState: IEmployees = {
   employees: [],
@@ -32,6 +32,16 @@ const employeesSlice = createSlice({
         state.employee = action.payload;
       })
       .addCase(fetchEmployee.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(addEmployee.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addEmployee.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.employee = action.payload;
+      })
+      .addCase(addEmployee.rejected, (state) => {
         state.isLoading = false;
       });
   },

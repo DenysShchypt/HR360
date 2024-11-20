@@ -18,7 +18,7 @@ const EmployeePage = React.lazy(
   () => import('../pages/Dashboard/Employee/Employee')
 );
 const EmployeeSettings = React.lazy(
-  () => import('../pages/Dashboard/Employee/AddEmployee/AddEmployee')
+  () => import('../pages/Dashboard/Employee/Settings/Settings')
 );
 
 const App: FC = () => {
@@ -63,9 +63,9 @@ const App: FC = () => {
           <Route index element={<DashboardPage />} />
           <Route path="employee" element={<EmployeePage />}>
             <Route path="directory" element={<EmployeeDirectoryPage />} />
-            <Route path="attendance" element={<h1></h1>} />
+            {/* <Route path="attendance" element={<h1></h1>} />
             <Route path="requests" element={<h1></h1>} />
-            <Route path="absence" element={<h1></h1>} />
+            <Route path="absence" element={<h1></h1>} /> */}
             <Route path="settings" element={<EmployeeSettings />} />
           </Route>
         </Route>

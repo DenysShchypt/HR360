@@ -53,9 +53,9 @@ const SelectDepartment: FC<IEmployeesFilterProps> = ({
       >
         <span>{department === '' ? 'All departments' : department}</span>
         {dropdownArrow ? (
-          <IoIosArrowUp size={16} className={styles.icon_arrow} />
+          <IoIosArrowUp size={16} />
         ) : (
-          <IoIosArrowDown size={16} className={styles.icon_arrow} />
+          <IoIosArrowDown size={16} />
         )}
       </button>
 

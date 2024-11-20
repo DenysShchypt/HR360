@@ -91,7 +91,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                       Employee directory
                     </NavLink>
                   </li>
-                  <li className={styles.sub_item}>
+                  {/* <li className={styles.sub_item}>
                     <NavLink
                       to={
                         isLoginUser
@@ -119,7 +119,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                     >
                       Absence Trends
                     </NavLink>
-                  </li>
+                  </li> */}
                   <li className={styles.sub_item}>
                     <NavLink
                       to={
@@ -153,7 +153,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                   <IoIosArrowUp size={16} className={styles.icon} />
                 )}
               </button>
-              {openGroups['recruitment'] && (
+              {/* {openGroups['recruitment'] && (
                 <ul className={styles.list_sub_items}>
                   <li className={styles.sub_item}>
                     <NavLink to="/">Employee directory</NavLink>
@@ -168,7 +168,7 @@ const Sidebar: FC<ISidebarProps> = ({ isSidebarOpen }) => {
                     <NavLink to="/">Absence Trends</NavLink>
                   </li>
                 </ul>
-              )}
+              )} */}
             </li>
             <li className={styles.list_item}>
               <NavLink to="/" className={styles.nav_item}>

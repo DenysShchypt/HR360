@@ -43,3 +43,23 @@ export const fetchEmployee = createAsyncThunk<
     }
   }
 });
+
+export const addEmployee = createAsyncThunk<
+  IEmployee,
+  IEmployee,
+  { rejectValue: string }
+>('employees/add', async (body: IEmployee, { rejectWithValue }) => {
+  try {
+    const response = await axios.post<IEmployee>(`/employees`, body);
+    return response.data;
+  } catch (error) {
+    const typedError = error as IError;
+    if (typedError.response?.data?.message) {
+      return rejectWithValue(typedError.response.data.message);
+    } else if (typedError.message) {
+      return rejectWithValue(typedError.message);
+    } else {
+      return rejectWithValue('An unknown error from backend server');
+    }
+  }
+});
