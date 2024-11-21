@@ -184,11 +184,23 @@
   padding: 4px 12px;
   transition: background-color 0.3s ease;
   text-align: center;
-  /* white-space: nowrap; */
   transition:
-    background-color 0.3s ease,
-    border 0.3s ease;
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.custom_full_radio:hover,
+.custom_full_radio:focus-within,
+.custom_part_radio:hover,
+.custom_part_radio:focus-within,
+.custom_contract_radio:hover,
+.custom_contract_radio:focus-within,
+.custom_sub_radio:hover,
+.custom_sub_radio:focus-within {
+  border-color: #534feb;
+  box-shadow: 0 4px 8px rgba(104, 104, 104, 0.5);
+}
+
 .custom_sub_radio {
   background-color: var(--sidebar-background-color);
   border: 1px solid var(--primary-border-color);
@@ -235,11 +247,16 @@
   border-radius: 12px;
   transition:
     background-color 0.3s ease,
-    color 0.3s ease;
+    color 0.3s ease,
+    opacity 250s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .add_button:hover,
 .add_button:focus {
   background-color: var(--active-button-background);
   color: var(--primary-text-color);
+  border-color: #534feb;
+  box-shadow: 0 4px 8px rgba(104, 104, 104, 0.5);
 }

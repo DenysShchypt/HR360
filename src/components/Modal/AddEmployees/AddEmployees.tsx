@@ -5,6 +5,7 @@ import { selectDepartments } from '../../../redux/slices/departments/departments
 import styles from './AddEmployees.module.css';
 import { addEmployee } from '../../../redux/slices/employees/employees.thunks';
 import { IEmployee } from '../../../common/types/employees';
+import { getRandomTime } from '../../../utils/helpers/time';
 
 interface IAddEmployeesProps {
   onClose: () => void;
@@ -19,6 +20,7 @@ const AddEmployees: FC<IAddEmployeesProps> = ({ onClose }) => {
   const allDepartments = useAppSelector(selectDepartments);
 
   const employments = ['Full-time', 'Part-time', 'Contract'];
+  const randomNumber = Math.floor(Math.random() * (100 - 50 + 1)) + 20;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -55,10 +57,10 @@ const AddEmployees: FC<IAddEmployeesProps> = ({ onClose }) => {
       department: department || 'Unassigned',
       employment: formData.get('employment') as string,
       name: `${formData.get('first-name')} ${formData.get('last-name')}`,
-      photo: '',
-      role: 'Employee',
-      checkIn: new Date().toISOString(),
-      checkOut: new Date().toISOString(),
+      photo: `https://i.pravatar.cc/150?img=${randomNumber}`,
+      role: department,
+      checkIn: getRandomTime(),
+      checkOut: getRandomTime(),
       status: 'Present',
       overTime: '2h',
     };

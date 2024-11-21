@@ -1,25 +1,29 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import styles from './EmployeesTable.module.css';
 import { dateDayMonth } from '../../utils/helpers/time';
 import { IEmployee } from '../../common/types/employees';
-import { useAppSelector } from '../../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { selectAllEmployees } from '../../redux/slices/employees/employees.selectors';
 import Pagination from './Pagination/Pagination';
+import { AiOutlineUsergroupDelete } from 'react-icons/ai';
+import { removeEmployee } from '../../redux/slices/employees/employees.thunks';
 
 interface IEmployeesTableProps {
   search: string;
   department: string;
-  status: string[];
-  employment: string[];
+  status?: string[];
+  employment?: string[];
+  remove?: boolean;
 }
 const EmployeesTable: FC<IEmployeesTableProps> = ({
   search,
   department,
-  status,
-  employment,
+  status = [],
+  employment = [],
+  remove,
 }) => {
+  const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const [paginatedEmployees, setPaginatedEmployees] = useState<IEmployee[]>([]);
   const employees = useAppSelector(selectAllEmployees) as IEmployee[];
   const filterEmployees = useMemo(() => {
     return employees.filter((employee) => {
@@ -40,16 +44,17 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
     });
   }, [employees, search, department, status, employment]);
 
-  useEffect(() => {
-    const tableRowPerPage = 7;
-    const indexOfLastTableRow = currentPage * tableRowPerPage;
-    const indexOfFirstTableRow = indexOfLastTableRow - tableRowPerPage;
-    const paginated = filterEmployees.slice(
-      indexOfFirstTableRow,
-      indexOfLastTableRow
-    );
-    setPaginatedEmployees(paginated);
-  }, [currentPage, filterEmployees]);
+  const paginatedEmployees = useMemo(() => {
+    const rowsPerPage = 7;
+    const startIdx = (currentPage - 1) * rowsPerPage;
+    const endIdx = startIdx + rowsPerPage;
+
+    return filterEmployees.slice(startIdx, endIdx);
+  }, [filterEmployees, currentPage]);
+
+  const removeWorker = (id: string) => {
+    dispatch(removeEmployee(id));
+  };
 
   return (
     <div className={styles.table_wrap}>
@@ -63,7 +68,8 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
             <th className={styles.head_column}>Status</th>
             <th className={styles.head_column}>Check In</th>
             <th className={styles.head_column}>Check Out</th>
-            <th className={styles.head_column}>Over Time</th>
+            <th className={styles.head_column_center}>Over Time</th>
+            {remove && <th className={styles.head_column_center}>Remove</th>}
           </tr>
         </thead>
         <tbody>
@@ -110,7 +116,14 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
                 </td>
                 <td className={styles.item}>{employee.checkIn}</td>
                 <td className={styles.item}>{employee.checkOut}</td>
-                <td className={styles.item}>{employee.overTime}</td>
+                <td className={styles.item_center}>{employee.overTime}</td>
+                {remove && (
+                  <td className={styles.item_center}>
+                    <button onClick={() => removeWorker(employee.id)}>
+                      <AiOutlineUsergroupDelete size={20} />
+                    </button>
+                  </td>
+                )}
               </tr>
             );
           })}

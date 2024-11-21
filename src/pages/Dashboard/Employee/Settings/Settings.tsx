@@ -5,45 +5,64 @@ import { RiEditCircleLine } from 'react-icons/ri';
 import Tippy from '@tippyjs/react';
 import MainModal from '../../../../components/Modal/MainModal';
 import AddEmployees from '../../../../components/Modal/AddEmployees/AddEmployees';
+import RemoveEmployee from '../../../../components/Modal/RemoveEmployee/RemoveEmployee';
+
+interface ITooltipButtonProps {
+  tooltip: string;
+  onClick: () => void;
+  Icon: FC<{ size: number; className?: string }>;
+}
+
+const TooltipButton: FC<ITooltipButtonProps> = ({ tooltip, onClick, Icon }) => (
+  <Tippy
+    content={tooltip}
+    placement="top"
+    className={styles.tooltip}
+    animation="fade"
+    duration={[500, 200]}
+  >
+    <button type="button" className={styles.setting_button} onClick={onClick}>
+      <Icon size={30} className={styles.icon} />
+    </button>
+  </Tippy>
+);
 
 const Settings: FC = () => {
-  const [isAddModal, setIsAddModal] = useState(false);
-
-  const toggleModal = () => {
-    setIsAddModal((prevState) => {
-      const nextState = !prevState;
-      document.body.style.overflow = nextState ? 'hidden' : '';
-      return nextState;
-    });
+  const [modalType, setModalType] = useState<'add' | 'remove' | 'edit' | null>(
+    null
+  );
+  const toggleModal = (type: 'add' | 'remove' | 'edit' | null) => {
+    setModalType(type);
+    document.body.style.overflow = type ? 'hidden' : '';
   };
+
   return (
     <>
       <div className={styles.setting_box}>
-        <Tippy
-          content="Add a new employee"
-          placement="top"
-          className={styles.tooltip}
-          animation="fade"
-          duration={[500, 200]}
-        >
-          <button
-            type="button"
-            className={styles.setting_button}
-            onClick={() => setIsAddModal(true)}
-          >
-            <PiUserCirclePlus size={20} className={styles.icon} />
-          </button>
-        </Tippy>
-        <button type="button" className={styles.setting_button}>
-          <PiUserCircleMinus size={20} className={styles.icon} />
-        </button>
-        <button type="button" className={styles.setting_button}>
-          <RiEditCircleLine size={20} className={styles.icon} />
-        </button>
+        <TooltipButton
+          tooltip="Add a new employee"
+          onClick={() => toggleModal('add')}
+          Icon={PiUserCirclePlus}
+        />
+        <TooltipButton
+          tooltip="Remove employee"
+          onClick={() => toggleModal('remove')}
+          Icon={PiUserCircleMinus}
+        />
+        <TooltipButton
+          tooltip="Edit settings"
+          onClick={() => console.log('Edit settings clicked')}
+          Icon={RiEditCircleLine}
+        />
       </div>
-      {isAddModal && (
-        <MainModal closeModal={toggleModal}>
-          <AddEmployees onClose={toggleModal} />
+      {modalType === 'add' && (
+        <MainModal closeModal={() => toggleModal(null)}>
+          <AddEmployees onClose={() => toggleModal(null)} />
+        </MainModal>
+      )}
+      {modalType === 'remove' && (
+        <MainModal closeModal={() => toggleModal(null)} closeButton>
+          <RemoveEmployee />
         </MainModal>
       )}
     </>

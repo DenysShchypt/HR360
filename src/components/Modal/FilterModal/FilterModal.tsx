@@ -4,15 +4,15 @@ import styles from './FilterModal.module.css';
 interface IFilterModalProps {
   onClose: () => void;
   setSearchParams: (value: string | URLSearchParams) => void;
-  status: string[];
-  employment: string[];
+  status?: string[];
+  employment?: string[];
 }
 
 const FilterModal: FC<IFilterModalProps> = ({
   onClose,
   setSearchParams,
-  status,
-  employment,
+  status = [],
+  employment = [],
 }) => {
   const handleFilter = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const FilterModal: FC<IFilterModalProps> = ({
     const value: string = e.target.value;
 
     const params = new URLSearchParams(window.location.search);
-    if (status.includes(value)) {
+    if (status?.includes(value)) {
       const removeStatuses = status.filter((item) => item !== value);
       params.delete('status');
       removeStatuses.forEach((item) => params.append('status', item));
@@ -41,7 +41,7 @@ const FilterModal: FC<IFilterModalProps> = ({
     const value: string = e.target.value;
 
     const params = new URLSearchParams(window.location.search);
-    if (employment.includes(value)) {
+    if (employment?.includes(value)) {
       const removeStatuses = employment.filter((item) => item !== value);
       params.delete('employment');
       removeStatuses.forEach((item) => params.append('employment', item));
@@ -59,7 +59,7 @@ const FilterModal: FC<IFilterModalProps> = ({
         <div className={styles.box_checkbox}>
           <label
             className={
-              employment.find((checkbox) => checkbox === 'Full-time')
+              employment?.find((checkbox) => checkbox === 'Full-time')
                 ? styles.custom_full_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -74,7 +74,7 @@ const FilterModal: FC<IFilterModalProps> = ({
           </label>
           <label
             className={
-              employment.find((checkbox) => checkbox === 'Part-time')
+              employment?.find((checkbox) => checkbox === 'Part-time')
                 ? styles.custom_part_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -89,7 +89,7 @@ const FilterModal: FC<IFilterModalProps> = ({
           </label>
           <label
             className={
-              employment.find((checkbox) => checkbox === 'Contract')
+              employment?.find((checkbox) => checkbox === 'Contract')
                 ? styles.custom_contract_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -109,7 +109,7 @@ const FilterModal: FC<IFilterModalProps> = ({
         <div className={styles.box_checkbox}>
           <label
             className={
-              status.find((checkbox) => checkbox === 'Present')
+              status?.find((checkbox) => checkbox === 'Present')
                 ? styles.custom_present_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -124,7 +124,7 @@ const FilterModal: FC<IFilterModalProps> = ({
           </label>
           <label
             className={
-              status.find((checkbox) => checkbox === 'Late')
+              status?.find((checkbox) => checkbox === 'Late')
                 ? styles.custom_late_checkbox
                 : styles.custom_sub_checkbox
             }
@@ -139,7 +139,7 @@ const FilterModal: FC<IFilterModalProps> = ({
           </label>
           <label
             className={
-              status.find((checkbox) => checkbox === 'Absent')
+              status?.find((checkbox) => checkbox === 'Absent')
                 ? styles.custom_absent_checkbox
                 : styles.custom_sub_checkbox
             }
