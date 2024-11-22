@@ -45,13 +45,12 @@ export const fetchEmployee = createAsyncThunk<
 });
 
 export const addEmployee = createAsyncThunk<
-  IEmployee,
+  void,
   IEmployee,
   { rejectValue: string }
 >('employees/add', async (body: IEmployee, { rejectWithValue }) => {
   try {
-    const response = await axios.post<IEmployee>(`/employees`, body);
-    return response.data;
+    await axios.post<IEmployee>(`/employees`, body);
   } catch (error) {
     const typedError = error as IError;
     if (typedError.response?.data?.message) {
@@ -71,6 +70,25 @@ export const removeEmployee = createAsyncThunk<
   try {
     await axios.delete(`/employees/${id}`);
     return id;
+  } catch (error) {
+    const typedError = error as IError;
+    if (typedError.response?.data?.message) {
+      return rejectWithValue(typedError.response.data.message);
+    } else if (typedError.message) {
+      return rejectWithValue(typedError.message);
+    } else {
+      return rejectWithValue('An unknown error from backend server');
+    }
+  }
+});
+export const editEmployee = createAsyncThunk<
+  { body: IEmployee; id: string },
+  { body: IEmployee; id: string },
+  { rejectValue: string }
+>('employees/edit', async ({ body, id }, { rejectWithValue }) => {
+  try {
+    const res = await axios.put(`/employees/${id}`, body);
+    return { body: res.data, id };
   } catch (error) {
     const typedError = error as IError;
     if (typedError.response?.data?.message) {

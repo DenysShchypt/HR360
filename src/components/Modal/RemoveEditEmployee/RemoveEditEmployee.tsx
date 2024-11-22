@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import styles from './RemoveEmployee.module.css';
+import styles from './RemoveEditEmployee.module.css';
 import EmployeesFilter from '../../EmployeesFilter/EmployeesFilter';
 import { useSearchParams } from 'react-router-dom';
 import { fetchEmployees } from '../../../redux/slices/employees/employees.thunks';
 import { useAppDispatch } from '../../../utils/hooks/hooks';
 import EmployeesTable from '../../EmployeesTable/EmployeesTable';
 
-const RemoveEmployee: FC = () => {
+const RemoveEditEmployee: FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useMemo(() => {
@@ -34,15 +34,15 @@ const RemoveEmployee: FC = () => {
         setSearchParams={setSearchParams}
         search={search || ''}
         department={department || ''}
-        remove
+        settings
       />
       <EmployeesTable
         search={search || ''}
         department={department || ''}
-        remove
+        settings
       />
     </div>
   );
 };
 
-export default RemoveEmployee;
+export default RemoveEditEmployee;

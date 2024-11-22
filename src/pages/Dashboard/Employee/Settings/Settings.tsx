@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react';
 import styles from './Settings.module.css';
 import { PiUserCircleMinus, PiUserCirclePlus } from 'react-icons/pi';
-import { RiEditCircleLine } from 'react-icons/ri';
 import Tippy from '@tippyjs/react';
 import MainModal from '../../../../components/Modal/MainModal';
-import AddEmployees from '../../../../components/Modal/AddEmployees/AddEmployees';
-import RemoveEmployee from '../../../../components/Modal/RemoveEmployee/RemoveEmployee';
+import AddEditEmployees from '../../../../components/Modal/AddEditEmployees/AddEditEmployees';
+import RemoveEditEmployee from '../../../../components/Modal/RemoveEditEmployee/RemoveEditEmployee';
+import { LiaUserEditSolid } from 'react-icons/lia';
 
 interface ITooltipButtonProps {
   tooltip: string;
@@ -51,18 +51,18 @@ const Settings: FC = () => {
         />
         <TooltipButton
           tooltip="Edit settings"
-          onClick={() => console.log('Edit settings clicked')}
-          Icon={RiEditCircleLine}
+          onClick={() => toggleModal('edit')}
+          Icon={LiaUserEditSolid}
         />
       </div>
       {modalType === 'add' && (
         <MainModal closeModal={() => toggleModal(null)}>
-          <AddEmployees onClose={() => toggleModal(null)} />
+          <AddEditEmployees onClose={() => toggleModal(null)} />
         </MainModal>
       )}
       {modalType === 'remove' && (
         <MainModal closeModal={() => toggleModal(null)} closeButton>
-          <RemoveEmployee />
+          <RemoveEditEmployee />
         </MainModal>
       )}
     </>

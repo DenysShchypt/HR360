@@ -16,7 +16,7 @@ interface IEmployeesFilterProps {
   department: string;
   status?: string[];
   employment?: string[];
-  remove?: boolean;
+  settings?: boolean;
 }
 
 const EmployeesFilter: FC<IEmployeesFilterProps> = ({
@@ -25,7 +25,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
   department,
   status,
   employment,
-  remove,
+  settings,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
@@ -60,7 +60,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
   return (
     <div
       className={styles.box}
-      style={remove ? { justifyContent: 'center' } : undefined}
+      style={settings ? { justifyContent: 'center' } : undefined}
     >
       <label className={styles.input_wrap}>
         <button className={styles.search}>
@@ -79,7 +79,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
           <MdOutlineCleaningServices size={16} />
         </button>
       </label>
-      {!remove && (
+      {!settings && (
         <div className={styles.filter_wrap}>
           <button className={styles.filter_button} onClick={toggleModal}>
             <span className={styles.filter_text}>Filter</span>
@@ -89,7 +89,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
       )}
       <div
         className={styles.data_box}
-        style={remove ? { marginLeft: '0' } : undefined}
+        style={settings ? { marginLeft: '0' } : undefined}
       >
         <div className={styles.select_wrap}>
           <SelectDepartment
@@ -97,7 +97,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
             department={department}
           />
         </div>
-        {!remove && (
+        {!settings && (
           <div className={styles.calendar_wrap}>
             <button className={styles.calendar_button}>
               <PiCalendar size={20} />
@@ -105,7 +105,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
             </button>
           </div>
         )}
-        {!remove && (
+        {!settings && (
           <div className={styles.sv_wrap}>
             <button className={styles.sv_button}>
               <span>Export CSV</span>

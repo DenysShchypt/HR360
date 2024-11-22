@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IEmployees } from '../../../common/types/employees';
 import {
   addEmployee,
+  editEmployee,
   fetchEmployee,
   fetchEmployees,
   removeEmployee,
@@ -43,6 +44,15 @@ const employeesSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(addEmployee.rejected, handleRejected)
+      .addCase(editEmployee.pending, handlePending)
+      .addCase(editEmployee.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.employees = state.employees.filter(
+          (employee) => employee.id !== action.payload.id
+        );
+        state.employees.push(action.payload.body);
+      })
+      .addCase(editEmployee.rejected, handleRejected)
       .addCase(removeEmployee.pending, handlePending)
       .addCase(removeEmployee.fulfilled, (state, action) => {
         state.isLoading = false;
