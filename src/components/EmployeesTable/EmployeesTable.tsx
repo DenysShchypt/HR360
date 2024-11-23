@@ -10,6 +10,8 @@ import { removeEmployee } from '../../redux/slices/employees/employees.thunks';
 import { LiaUserEditSolid } from 'react-icons/lia';
 import MainModal from '../Modal/MainModal';
 import AddEditEmployees from '../Modal/AddEditEmployees/AddEditEmployees';
+import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
+import { useModal } from '../../utils/hooks/useModal';
 
 interface IEmployeesTableProps {
   search: string;
@@ -27,8 +29,10 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const { isOpen: isOpenEditModal, toggle: toggleEditModal } = useModal();
+  const { isOpen: isModalConfirm, toggle: toggleConfirmModal } = useModal();
   const [employee, setEmployee] = useState<IEmployee>();
+  const [removeEmployeeId, setRemoveEmployeeId] = useState('');
   const employees = useAppSelector(selectAllEmployees) as IEmployee[];
 
   const filterEmployees = useMemo(() => {
@@ -58,16 +62,9 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
     return filterEmployees.slice(startIdx, endIdx);
   }, [filterEmployees, currentPage]);
 
-  const removeWorker = (id: string) => {
-    dispatch(removeEmployee(id));
-  };
-
-  const toggleModal = () => {
-    setIsOpenEditModal((prevState) => {
-      const nextState = !prevState;
-      document.body.style.overflow = nextState ? 'hidden' : '';
-      return nextState;
-    });
+  const removeWorker = () => {
+    dispatch(removeEmployee(removeEmployeeId));
+    toggleConfirmModal();
   };
 
   return (
@@ -149,7 +146,7 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
                     <td className={styles.item_center}>
                       <button
                         onClick={() => {
-                          setIsOpenEditModal(true);
+                          toggleEditModal();
                           setEmployee(employee);
                         }}
                       >
@@ -159,7 +156,12 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
                   )}
                   {settings && (
                     <td className={styles.item_center}>
-                      <button onClick={() => removeWorker(employee.id)}>
+                      <button
+                        onClick={() => {
+                          setRemoveEmployeeId(employee.id);
+                          toggleConfirmModal();
+                        }}
+                      >
                         <AiOutlineUsergroupDelete size={20} />
                       </button>
                     </td>
@@ -176,8 +178,16 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
         />
       </div>
       {isOpenEditModal && (
-        <MainModal closeModal={toggleModal}>
-          <AddEditEmployees onClose={toggleModal} employee={employee} />
+        <MainModal closeModal={toggleEditModal}>
+          <AddEditEmployees onClose={toggleEditModal} employee={employee} />
+        </MainModal>
+      )}
+      {isModalConfirm && (
+        <MainModal closeModal={toggleConfirmModal}>
+          <ConfirmModal
+            onClose={toggleConfirmModal}
+            handleEvent={removeWorker}
+          />
         </MainModal>
       )}
     </>

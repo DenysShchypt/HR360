@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import { LuListFilter } from 'react-icons/lu';
 import { PiCalendar } from 'react-icons/pi';
@@ -9,6 +9,7 @@ import { datePartShort } from '../../utils/helpers/time';
 import SelectDepartment from './SelectDepartment/SelectDepartment';
 import MainModal from '../Modal/MainModal';
 import FilterModal from '../Modal/FilterModal/FilterModal';
+import { useModal } from '../../utils/hooks/useModal';
 
 interface IEmployeesFilterProps {
   setSearchParams: (value: string | URLSearchParams) => void;
@@ -27,14 +28,8 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
   employment,
   settings,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => {
-    setIsModalOpen((prevState) => {
-      const nextState = !prevState;
-      document.body.style.overflow = nextState ? 'hidden' : '';
-      return nextState;
-    });
-  };
+  const { isOpen: isModalOpen, toggle: setIsModalOpen } = useModal();
+
   const updateQueryString = (search: string) => {
     const params = new URLSearchParams(window.location.search);
     if (search !== '') {
@@ -81,7 +76,7 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
       </label>
       {!settings && (
         <div className={styles.filter_wrap}>
-          <button className={styles.filter_button} onClick={toggleModal}>
+          <button className={styles.filter_button} onClick={setIsModalOpen}>
             <span className={styles.filter_text}>Filter</span>
             <LuListFilter size={16} />
           </button>
@@ -115,12 +110,12 @@ const EmployeesFilter: FC<IEmployeesFilterProps> = ({
         )}
       </div>
       {isModalOpen && (
-        <MainModal closeModal={toggleModal}>
+        <MainModal closeModal={setIsModalOpen}>
           <FilterModal
             status={status}
             employment={employment}
             setSearchParams={setSearchParams}
-            onClose={toggleModal}
+            onClose={setIsModalOpen}
           />
         </MainModal>
       )}
