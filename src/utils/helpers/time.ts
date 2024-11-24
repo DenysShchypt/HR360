@@ -20,3 +20,12 @@ export const dateDayMonth: string = now.toLocaleDateString('en-GB', {
   day: '2-digit',
   month: '2-digit',
 });
+
+export const getRandomTime = () => {
+  const hours = Math.floor(Math.random() * 12) + 1;
+  const minutes = Math.floor(Math.random() * 60);
+  const period = Math.random() < 0.5 ? 'AM' : 'PM';
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+
+  return `${hours}:${formattedMinutes} ${period}`;
+};

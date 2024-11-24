@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import EmployeesTable from '../../../components/EmployeesTable/EmployeesTable';
-import EmployeesFilter from '../../../components/EmployeesFilter/EmployeesFilter';
+import styles from './RemoveEditEmployee.module.css';
+import EmployeesFilter from '../../EmployeesFilter/EmployeesFilter';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '../../../utils/hooks/hooks';
 import { fetchEmployees } from '../../../redux/slices/employees/employees.thunks';
+import { useAppDispatch } from '../../../utils/hooks/hooks';
+import EmployeesTable from '../../EmployeesTable/EmployeesTable';
 
-const EmployeeDirectory: FC = () => {
+const RemoveEditEmployee: FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useMemo(() => {
@@ -22,28 +23,26 @@ const EmployeeDirectory: FC = () => {
     employment: string[];
   };
 
-  const { search, department, status, employment } = params;
+  const { search, department } = params;
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);
 
   return (
-    <>
+    <div className={styles.modal_wrap}>
       <EmployeesFilter
         setSearchParams={setSearchParams}
         search={search || ''}
         department={department || ''}
-        status={status || []}
-        employment={employment || []}
+        settings
       />
       <EmployeesTable
         search={search || ''}
         department={department || ''}
-        status={status || []}
-        employment={employment || []}
+        settings
       />
-    </>
+    </div>
   );
 };
 
-export default EmployeeDirectory;
+export default RemoveEditEmployee;

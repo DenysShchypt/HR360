@@ -1,0 +1,5 @@
+.modal_wrap {
+  width: 60vw;
+  padding: 22px;
+  background-color: var(--main-background-color);
+}

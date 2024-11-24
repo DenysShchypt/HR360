@@ -1,20 +1,18 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
+import styles from './SelectDepartmentModal.module.css';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { useAppSelector } from '../../../utils/hooks/hooks';
 import { selectDepartments } from '../../../redux/slices/departments/departments.selectors';
-
-import styles from './SelectDepartment.module.css';
-interface IEmployeesFilterProps {
-  setSearchParams: (value: string) => void;
+interface ISelectDepartmentModalProps {
+  handleDepartment: (department: string) => void;
   department: string;
 }
-const SelectDepartment: FC<IEmployeesFilterProps> = ({
-  setSearchParams,
+const SelectDepartmentModal: FC<ISelectDepartmentModalProps> = ({
+  handleDepartment,
   department,
 }) => {
-  const selectRef = useRef<HTMLDivElement>(null);
   const [dropdownArrow, setDropdownArrow] = useState(false);
-
+  const selectRef = useRef<HTMLDivElement>(null);
   const allDepartments = useAppSelector(selectDepartments);
 
   useEffect(() => {
@@ -29,45 +27,40 @@ const SelectDepartment: FC<IEmployeesFilterProps> = ({
     };
   }, [dropdownArrow]);
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setDropdownArrow((prev) => !prev);
   };
-
-  const handleFilter = (department: string) => {
-    const params = new URLSearchParams(window.location.search);
-    if (department !== '') {
-      params.set('department', department);
-    } else {
-      params.delete('department');
-    }
-    setSearchParams(params.toString());
-    setDropdownArrow(false);
-  };
-
   return (
     <div className={styles.select_wrapper} ref={selectRef}>
       <button
         type="button"
         onClick={toggleDropdown}
-        className={styles.dropdown_header}
+        className={styles.select_toggle}
       >
-        <span>{department === '' ? 'All departments' : department}</span>
-        {dropdownArrow ? (
-          <IoIosArrowUp size={16} />
-        ) : (
-          <IoIosArrowDown size={16} />
-        )}
+        <span className={styles.select_point}>Departments:</span>
+        <div className={styles.dropdown_header}>
+          <span className={styles.select_title}>
+            {department ? department : 'All departments'}
+          </span>
+          {dropdownArrow ? (
+            <IoIosArrowUp size={16} />
+          ) : (
+            <IoIosArrowDown size={16} />
+          )}
+        </div>
       </button>
 
       {dropdownArrow && (
         <ul className={styles.dropdown_menu}>
-          <li onClick={() => handleFilter('')} className={styles.dropdown_item}>
-            All departments
-          </li>
           {allDepartments.map((department) => (
             <li
               key={department.id}
-              onClick={() => handleFilter(department.name)}
+              onClick={() => {
+                handleDepartment(department.name);
+                setDropdownArrow(false);
+              }}
               className={styles.dropdown_item}
             >
               {department.name}
@@ -79,4 +72,4 @@ const SelectDepartment: FC<IEmployeesFilterProps> = ({
   );
 };
 
-export default SelectDepartment;
+export default SelectDepartmentModal;

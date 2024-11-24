@@ -5,7 +5,7 @@ export interface IEmployees {
 }
 
 export interface IEmployee {
-  id: number;
+  id: string;
   name: string;
   photo: string;
   role: string;
