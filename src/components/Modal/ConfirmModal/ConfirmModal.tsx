@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import styles from './ConfirmModal.module.css';
 interface IConfirmModalProps {
   onClose: () => void;
   handleEvent: () => void;
@@ -6,13 +7,17 @@ interface IConfirmModalProps {
 
 const ConfirmModal: FC<IConfirmModalProps> = ({ onClose, handleEvent }) => {
   return (
-    <div>
-      <h4 className="">Are you sure?</h4>
-      <div className="">
-        <button className="" type="button" onClick={onClose}>
+    <div className={styles.wrap}>
+      <h4 className={styles.text}>Are you sure?</h4>
+      <div className={styles.button_box}>
+        <button className={styles.chose_button} type="button" onClick={onClose}>
           No
         </button>
-        <button className="" type="button" onClick={handleEvent}>
+        <button
+          className={styles.chose_button}
+          type="button"
+          onClick={handleEvent}
+        >
           Yes
         </button>
       </div>
