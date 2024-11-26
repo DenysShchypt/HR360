@@ -4,14 +4,12 @@ import styles from './Pagination.module.css';
 import { IEmployee } from '../../../common/types/employees';
 
 interface IPaginationProps {
-  // filters: boolean;
   filterEmployees: IEmployee[];
   currentPage: number;
   setCurrentPage: (page: number) => void;
 }
 
 const Pagination: FC<IPaginationProps> = ({
-  // filters,
   filterEmployees,
   currentPage,
   setCurrentPage,

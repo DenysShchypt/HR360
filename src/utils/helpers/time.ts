@@ -29,3 +29,13 @@ export const getRandomTime = () => {
 
   return `${hours}:${formattedMinutes} ${period}`;
 };
+
+export const formatEventDate = (date: Date): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true,
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+};

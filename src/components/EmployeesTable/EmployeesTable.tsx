@@ -1,6 +1,6 @@
 import React, { FC, useMemo, useState } from 'react';
 import styles from './EmployeesTable.module.css';
-import { dateDayMonth } from '../../utils/helpers/time';
+import { dateDayMonth, formatEventDate } from '../../utils/helpers/time';
 import { IEmployee } from '../../common/types/employees';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { selectAllEmployees } from '../../redux/slices/employees/employees.selectors';
@@ -12,6 +12,9 @@ import MainModal from '../Modal/MainModal';
 import AddEditEmployees from '../Modal/AddEditEmployees/AddEditEmployees';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { useModal } from '../../utils/hooks/useModal';
+import { addEmployeeActivity } from '../../redux/slices/employees/activity/activity.thunks';
+import { selectUser } from '../../redux/slices/auth/auth.selectors';
+import { IActivity } from '../../common/types/activity';
 
 interface IEmployeesTableProps {
   search: string;
@@ -33,7 +36,9 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
   const { isOpen: isModalConfirm, toggle: toggleConfirmModal } = useModal();
   const [employee, setEmployee] = useState<IEmployee>();
   const [removeEmployeeId, setRemoveEmployeeId] = useState('');
+  const currentUser = useAppSelector(selectUser);
   const employees = useAppSelector(selectAllEmployees) as IEmployee[];
+  const rowsPerPage = 7;
 
   const filterEmployees = useMemo(() => {
     return employees.filter((employee) => {
@@ -55,7 +60,6 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
   }, [employees, search, department, status, employment]);
 
   const paginatedEmployees = useMemo(() => {
-    const rowsPerPage = 7;
     const startIdx = (currentPage - 1) * rowsPerPage;
     const endIdx = startIdx + rowsPerPage;
 
@@ -63,10 +67,26 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
   }, [filterEmployees, currentPage]);
 
   const removeWorker = () => {
+    const removeEmployeeFromList = filterEmployees.filter(
+      (employee) => employee.id === removeEmployeeId
+    );
+
+    const newEmployeeList = filterEmployees.filter(
+      (employee) => employee.id !== removeEmployeeId
+    );
+    const activity: IActivity = {
+      id: crypto.randomUUID(),
+      nameEmployee: removeEmployeeFromList[0].name,
+      time: formatEventDate(new Date()),
+      author: currentUser.username,
+      event: 'removed employee ',
+    };
+    dispatch(addEmployeeActivity(activity));
     dispatch(removeEmployee(removeEmployeeId));
     toggleConfirmModal();
+    setCurrentPage(Math.ceil(newEmployeeList.length / rowsPerPage));
   };
-
+  console.log(currentPage);
   return (
     <>
       <div className={styles.table_wrap}>
