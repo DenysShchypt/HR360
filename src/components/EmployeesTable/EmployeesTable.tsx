@@ -38,6 +38,8 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
   const [removeEmployeeId, setRemoveEmployeeId] = useState('');
   const currentUser = useAppSelector(selectUser);
   const employees = useAppSelector(selectAllEmployees) as IEmployee[];
+  const isFilterTrue = department || status.length > 0 || employment.length > 0;
+  console.log(isFilterTrue);
   const rowsPerPage = 7;
 
   const filterEmployees = useMemo(() => {
@@ -86,7 +88,9 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
     toggleConfirmModal();
     setCurrentPage(Math.ceil(newEmployeeList.length / rowsPerPage));
   };
-  console.log(currentPage);
+
+  const isShowEmployees = isFilterTrue ? filterEmployees : paginatedEmployees;
+
   return (
     <>
       <div className={styles.table_wrap}>
@@ -110,7 +114,7 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {paginatedEmployees.map((employee) => {
+            {isShowEmployees.map((employee) => {
               return (
                 <tr key={employee.id} className={styles.item_row}>
                   <td className={styles.item}>{dateDayMonth}</td>
