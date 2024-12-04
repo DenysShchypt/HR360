@@ -8,7 +8,7 @@ export interface IAuthState {
 }
 
 export interface IPublicUser {
-  uid: string;
+  id: string;
   username?: string;
   email: string;
   photo?: string;

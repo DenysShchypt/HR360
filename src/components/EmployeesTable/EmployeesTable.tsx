@@ -39,7 +39,6 @@ const EmployeesTable: FC<IEmployeesTableProps> = ({
   const currentUser = useAppSelector(selectUser);
   const employees = useAppSelector(selectAllEmployees) as IEmployee[];
   const isFilterTrue = department || status.length > 0 || employment.length > 0;
-  console.log(isFilterTrue);
   const rowsPerPage = 7;
 
   const filterEmployees = useMemo(() => {
