@@ -1,18 +1,20 @@
 import React, { FC, useState } from 'react';
 
-import { useAppDispatch } from '../../../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks/hooks';
 import styles from './AddEditEmployees.module.css';
 import {
   addEmployee,
   editEmployee,
 } from '../../../redux/slices/employees/employees.thunks';
 import { IEmployee } from '../../../common/types/employees';
-import { getRandomTime } from '../../../utils/helpers/time';
+import { formatEventDate, getRandomTime } from '../../../utils/helpers/time';
 import SelectDepartmentModal from '../../EmployeesFilter/SelectDepartmentModal/SelectDepartmentModal';
 import Employments from '../../EmployeesFilter/Employments/Employments';
 import MainModal from '../MainModal';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { useModal } from '../../../utils/hooks/useModal';
+import { addEmployeeActivity } from '../../../redux/slices/employees/activity/activity.thunks';
+import { selectUser } from '../../../redux/slices/auth/auth.selectors';
 
 interface IAddEmployeesProps {
   onClose: () => void;
@@ -20,6 +22,7 @@ interface IAddEmployeesProps {
 }
 
 const AddEditEmployees: FC<IAddEmployeesProps> = ({ onClose, employee }) => {
+  const currentUser = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const [department, setDepartment] = useState(employee?.department || '');
   const [employment, setEmployment] = useState(employee?.employment || '');
@@ -52,10 +55,24 @@ const AddEditEmployees: FC<IAddEmployeesProps> = ({ onClose, employee }) => {
       status: 'Present',
       overTime: '2h',
     };
+
+    const activity = {
+      id: crypto.randomUUID(),
+      nameEmployee: `${firstName} ${lastName}`,
+      time: formatEventDate(new Date()),
+      author: currentUser.username,
+    };
     if (employee?.id) {
       dispatch(editEmployee({ body: data, id: employee.id }));
+
+      dispatch(
+        addEmployeeActivity({ ...activity, event: 'made the change to ' })
+      );
     } else {
       dispatch(addEmployee(data));
+      dispatch(
+        addEmployeeActivity({ ...activity, event: 'add a new employee, ' })
+      );
     }
 
     onClose();

@@ -5,6 +5,7 @@ import Tippy from '@tippyjs/react';
 import MainModal from '../../../../components/Modal/MainModal';
 import AddEditEmployees from '../../../../components/Modal/AddEditEmployees/AddEditEmployees';
 import RemoveEditEmployee from '../../../../components/Modal/RemoveEditEmployee/RemoveEditEmployee';
+import ActivityChat from '../../../../components/ActivityChat/ActivityChat';
 
 interface ITooltipButtonProps {
   tooltip: string;
@@ -52,7 +53,7 @@ const Settings: FC = () => {
         />
       </div>
       <div className="">
-        <h3 className="">Activity</h3>
+        <ActivityChat />
       </div>
       {modalType === 'add' && (
         <MainModal closeModal={() => toggleModal(null)}>

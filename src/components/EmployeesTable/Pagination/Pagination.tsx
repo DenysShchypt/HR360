@@ -4,14 +4,12 @@ import styles from './Pagination.module.css';
 import { IEmployee } from '../../../common/types/employees';
 
 interface IPaginationProps {
-  // filters: boolean;
   filterEmployees: IEmployee[];
   currentPage: number;
   setCurrentPage: (page: number) => void;
 }
 
 const Pagination: FC<IPaginationProps> = ({
-  // filters,
   filterEmployees,
   currentPage,
   setCurrentPage,
@@ -50,13 +48,17 @@ const Pagination: FC<IPaginationProps> = ({
         >
           1
         </button>
-        {currentPage > 2 && <span className={styles.page_dots}>...</span>}
-        {totalPages !== currentPage && currentPage !== 1 && (
-          <p className={styles.page_current}>{currentPage}</p>
+        {currentPage > 2 && filterEmployees.length > tableRowPerPage && (
+          <span className={styles.page_dots}>...</span>
         )}
-        {totalPages - 1 !== currentPage && totalPages !== currentPage && (
-          <p className={styles.page_dots}>...</p>
-        )}
+        {totalPages !== currentPage &&
+          currentPage !== 1 &&
+          filterEmployees.length > tableRowPerPage && (
+            <p className={styles.page_current}>{currentPage}</p>
+          )}
+        {totalPages - 1 !== currentPage &&
+          filterEmployees.length > tableRowPerPage &&
+          totalPages !== currentPage && <p className={styles.page_dots}>...</p>}
         {totalPages !== 1 && (
           <button
             className={styles.page_button}

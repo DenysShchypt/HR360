@@ -1,0 +1,39 @@
+.activity_wrap {
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity_title {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.67;
+}
+
+.chat_wrap {
+  border: 0.5px solid var(--primary-border-color);
+  border-radius: 8px;
+  padding: 24px;
+  min-height: calc(100vh - 750px);
+  overflow-y: auto;
+}
+
+.event_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.event_user {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.event_text {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1;
+}

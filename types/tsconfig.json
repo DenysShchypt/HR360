@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./@types"], // Adjust if needed
+    "typeRoots": ["./node_modules/@types", "./@types"],
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
